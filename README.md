@@ -2,9 +2,10 @@
 
 Play - is a Java library to play Video / Music.
 
-It would be based on VLC / QTMovie / gstreams.
+It would be based on VLC or multi based on VLC / QTMovie / gstreams.
 
-Right now I'm testing VLC on all platroms, but if it fails. I will support platform dependent librarys.
+Right now I'm testing VLC on all platroms, but if it fails. I will support platform dependent librarys (Windows - VLC,
+Mac - QTMovie, Linux - gstreams).
 
 Why another Java Video Library?
 
