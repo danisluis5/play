@@ -22,6 +22,10 @@ master-setup:
 
 .PHONY: master
 
+# CFLAGS - for debuging, add debug information to the libvlc
+# PATH - to ignore macports /opt/local/bin folder
+# HOME=/ - to ignore ~/.gitconfig which is not compatible between git 1.8 and git 1.7 (apple default)
+
 master:
 	rm -rf master/
 	mkdir -p master/
