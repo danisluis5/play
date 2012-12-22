@@ -1,0 +1,14 @@
+This project is clone of http://code.google.com/p/vlcj/
+
+The main purpose of this clone is to provide flexible
+way to work with native librarys.
+
+Right now I add following features:
+
+- building vlc library scripts
+
+- packing vlc librarys into jar and installing it into local maven repo
+
+- drop for annoying GPL console message
+
+- fix version number to maven -SNAPSHOT prefix.
