@@ -8,6 +8,10 @@ public interface LibVlc extends Library {
 
     static LibVlc INSTANCE = (LibVlc) Native.loadLibrary("vlc", LibVlc.class);
 
+    libvlc_media_t libvlc_media_new_as_node(libvlc_instance_t p_instance, String psz_name);
+
+    libvlc_media_t libvlc_media_new_fd(libvlc_instance_t p_instance, int fd);
+
     libvlc_media_t libvlc_media_new_path(libvlc_instance_t p_instance, String path);
 
     libvlc_instance_t libvlc_new(int argc, String[] argv);

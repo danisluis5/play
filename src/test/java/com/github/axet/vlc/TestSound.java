@@ -13,47 +13,39 @@ import com.sun.jna.Native;
 import com.sun.jna.NativeLibrary;
 import com.sun.jna.Pointer;
 
-public class Test {
-
-    Canvas c;
+public class TestSound {
 
     public void run() {
-        JFrame f = new JFrame();
-
-        f.setSize(500, 500);
-        f.setLocationRelativeTo(null);
-
-        c = new Canvas();
-
-        f.getContentPane().add(c);
-
-        f.setVisible(true);
-
         String vlc_args[] = { "-I", "dumy", // No special interface
                 "--ignore-config", // Don't use VLC's config
         };
 
-        //NativeLibrary.addSearchPath("vlc", "/Applications/VLC.app/Contents/MacOS/lib");
+        // NativeLibrary.addSearchPath("vlc",
+        // "/Applications/VLC.app/Contents/MacOS/lib");
         NativeLibrary.addSearchPath("vlc", "/Users/axet/source/mircle/play/vlc/master/VLC.app/Contents/MacOS/lib/");
-        
 
         libvlc_instance_t inst = LibVlc.INSTANCE.libvlc_new(vlc_args.length, vlc_args);
 
         libvlc_media_player_t m = LibVlc.INSTANCE.libvlc_media_player_new(inst);
 
         libvlc_media_t fl = LibVlc.INSTANCE.libvlc_media_new_path(inst,
-                "/Users/axet/Downloads/tekzilla--0386--last-minute-geek-gift-guide--hd720p30.h264.mp4");
+                "/Users/axet/Downloads/globalnews_20121222-1554a.mp3");
 
         LibVlc.INSTANCE.libvlc_media_player_set_media(m, fl);
-        LibVlc.INSTANCE.libvlc_media_player_set_nsobject(m, Native.getComponentID(c));
         LibVlc.INSTANCE.libvlc_media_player_play(m);
+        
+        try {
+            Thread.sleep(1000*60);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
      * @param args
      */
     public static void main(String[] args) {
-        Test t = new Test();
+        TestSound t = new TestSound();
         t.run();
     }
 }
