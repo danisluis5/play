@@ -2,28 +2,30 @@ package com.github.axet.vlc;
 
 import java.awt.BorderLayout;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
 
 import com.github.axet.play.PlayVideo;
 import com.github.axet.play.PlayVideoFile;
+import com.github.axet.play.PlayVideoStream;
 import com.sun.jna.NativeLibrary;
 
-public class TestVideoFile extends JFrame {
+public class TestVideoSteam extends JFrame {
     private static final long serialVersionUID = -2449941177902198161L;
 
-    PlayVideoFile c;
+    PlayVideoStream c;
 
     JProgressBar progressBar;
 
-    public TestVideoFile() {
+    public TestVideoSteam() {
         progressBar = new JProgressBar();
         getContentPane().add(progressBar, BorderLayout.SOUTH);
 
-        c = new PlayVideoFile();
+        c = new PlayVideoStream();
 
         c.addListener(new PlayVideo.Listener() {
             @Override
@@ -54,7 +56,11 @@ public class TestVideoFile extends JFrame {
 
     public void run() {
         File f = new File("/Users/axet/Documents/Morrowind - Rats In My House (Let's Play #2).mp4");
-        c.open(f);
+        try {
+            c.open(new FileInputStream(f));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         c.play();
     }
 
@@ -67,7 +73,7 @@ public class TestVideoFile extends JFrame {
 
         NativeLibrary.addSearchPath("vlc", "/Users/axet/source/mircle/play/vlc/build/VLC.app/Contents/MacOS/lib/");
 
-        TestVideoFile t = new TestVideoFile();
+        TestVideoSteam t = new TestVideoSteam();
         t.run();
     }
 }
