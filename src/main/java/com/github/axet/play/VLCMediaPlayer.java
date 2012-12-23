@@ -24,5 +24,9 @@ public class VLCMediaPlayer {
             LibVlc.INSTANCE.libvlc_media_player_release(m);
             m = null;
         }
+        if (vlc != null) {
+            vlc.close();
+            vlc = null;
+        }
     }
 }

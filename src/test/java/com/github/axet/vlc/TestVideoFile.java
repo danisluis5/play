@@ -4,18 +4,16 @@ import java.awt.BorderLayout;
 import java.io.File;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
 
 import com.github.axet.play.PlayVideo;
-import com.github.axet.play.PlayVideoFile;
 import com.sun.jna.NativeLibrary;
 
 public class TestVideoFile extends JFrame {
     private static final long serialVersionUID = -2449941177902198161L;
 
-    PlayVideoFile c;
+    PlayVideo c;
 
     JProgressBar progressBar;
 
@@ -23,7 +21,7 @@ public class TestVideoFile extends JFrame {
         progressBar = new JProgressBar();
         getContentPane().add(progressBar, BorderLayout.SOUTH);
 
-        c = new PlayVideoFile();
+        c = new PlayVideo();
 
         c.addListener(new PlayVideo.Listener() {
             @Override
@@ -38,6 +36,13 @@ public class TestVideoFile extends JFrame {
 
             @Override
             public void stop() {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        c.close();
+                        dispose();
+                    }
+                });
             }
 
             @Override

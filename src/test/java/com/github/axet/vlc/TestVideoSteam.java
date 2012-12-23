@@ -10,14 +10,12 @@ import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
 
 import com.github.axet.play.PlayVideo;
-import com.github.axet.play.PlayVideoFile;
-import com.github.axet.play.PlayVideoStream;
 import com.sun.jna.NativeLibrary;
 
 public class TestVideoSteam extends JFrame {
     private static final long serialVersionUID = -2449941177902198161L;
 
-    PlayVideoStream c;
+    PlayVideo c;
 
     JProgressBar progressBar;
 
@@ -25,7 +23,7 @@ public class TestVideoSteam extends JFrame {
         progressBar = new JProgressBar();
         getContentPane().add(progressBar, BorderLayout.SOUTH);
 
-        c = new PlayVideoStream();
+        c = new PlayVideo();
 
         c.addListener(new PlayVideo.Listener() {
             @Override
@@ -40,6 +38,13 @@ public class TestVideoSteam extends JFrame {
 
             @Override
             public void stop() {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        c.close();
+                        dispose();
+                    }
+                });
             }
 
             @Override

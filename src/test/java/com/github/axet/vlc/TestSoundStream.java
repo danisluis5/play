@@ -10,7 +10,6 @@ import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
 
 import com.github.axet.play.PlaySound;
-import com.github.axet.play.PlaySoundStream;
 import com.sun.jna.NativeLibrary;
 
 public class TestSoundStream extends JFrame {
@@ -31,7 +30,7 @@ public class TestSoundStream extends JFrame {
         setVisible(true);
     }
 
-    PlaySoundStream p = new PlaySoundStream();
+    PlaySound p = new PlaySound();
 
     public void run() {
         // NativeLibrary.addSearchPath("vlc",
@@ -50,16 +49,17 @@ public class TestSoundStream extends JFrame {
         p.addListener(new PlaySound.Listener() {
             @Override
             public void position(final float pos) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        progressBar.setValue((int) (100.0 * pos));
-                    }
-                });
             }
 
             @Override
             public void stop() {
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        p.close();
+                        dispose();
+                    }
+                });
             }
 
             @Override
@@ -67,7 +67,7 @@ public class TestSoundStream extends JFrame {
             }
         });
         p.play();
-        
+
     }
 
     /**
