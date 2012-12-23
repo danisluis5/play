@@ -3,7 +3,6 @@ package com.github.axet.vlc;
 import java.awt.Canvas;
 
 import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
 
 import com.github.axet.play.vlc.LibVlc;
 import com.github.axet.play.vlc.libvlc_instance_t;
@@ -11,7 +10,6 @@ import com.github.axet.play.vlc.libvlc_media_player_t;
 import com.github.axet.play.vlc.libvlc_media_t;
 import com.sun.jna.Native;
 import com.sun.jna.NativeLibrary;
-import com.sun.jna.Pointer;
 
 public class TestVideo {
 
@@ -42,7 +40,7 @@ public class TestVideo {
         libvlc_media_player_t m = LibVlc.INSTANCE.libvlc_media_player_new(inst);
 
         libvlc_media_t fl = LibVlc.INSTANCE.libvlc_media_new_path(inst,
-                "/Users/axet/Downloads/tekzilla--0386--last-minute-geek-gift-guide--hd720p30.h264.mp4");
+                "/Users/axet/Documents/A Gamer's Xmas.mp4");
 
         LibVlc.INSTANCE.libvlc_media_player_set_media(m, fl);
         LibVlc.INSTANCE.libvlc_media_player_set_nsobject(m, Native.getComponentID(c));

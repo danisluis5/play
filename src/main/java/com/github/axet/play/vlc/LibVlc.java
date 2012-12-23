@@ -24,7 +24,11 @@ public interface LibVlc extends Library {
     // instance
     libvlc_instance_t libvlc_new(int argc, String[] argv);
 
+    void libvlc_release(libvlc_instance_t p_instance);
+
     libvlc_media_player_t libvlc_media_player_new(libvlc_instance_t p_libvlc_instance);
+
+    void libvlc_media_player_release(libvlc_media_player_t p_mi);
 
     // events
 
@@ -52,6 +56,6 @@ public interface LibVlc extends Library {
     int libvlc_media_player_stop(libvlc_media_player_t p_mi);
 
     void libvlc_media_player_set_pause(libvlc_media_player_t mp, int do_pause);
-    
+
     void libvlc_audio_set_volume(libvlc_media_player_t mp, int i_volume);
 }

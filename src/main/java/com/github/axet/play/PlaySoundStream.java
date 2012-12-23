@@ -1,11 +1,7 @@
 package com.github.axet.play;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel;
+import java.io.InputStream;
 
 import com.github.axet.play.vlc.LibVlc;
 import com.github.axet.play.vlc.MemFile;
@@ -23,15 +19,11 @@ import com.sun.jna.Pointer;
 import com.sun.jna.ptr.IntByReference;
 import com.sun.jna.ptr.LongByReference;
 
-public class PlaySoundFile extends PlaySound {
+public class PlaySoundStream extends PlaySound {
 
     MemFile mem;
 
-    RandomAccessFile file;
-    FileChannel fc;
-
     VLC vlc;
-
     libvlc_media_player_t m;
 
     libvlc_callback_t evets = new libvlc_callback_t() {
@@ -45,22 +37,16 @@ public class PlaySoundFile extends PlaySound {
                 }
                 stop();
                 break;
-            case libvlc_event_type_t.libvlc_MediaPlayerPositionChanged:
-                for (Listener l : listeners) {
-                    float pos = LibVlc.INSTANCE.libvlc_media_player_get_position(m);
-                    l.position(pos);
-                }
-                break;
             default:
                 break;
             }
         }
     };
 
-    public PlaySoundFile() {
+    public PlaySoundStream() {
     }
 
-    public void open(final File f) {
+    public void open(final InputStream is) {
         vlc = new VLC();
 
         mem = new MemFile();
@@ -68,13 +54,6 @@ public class PlaySoundFile extends PlaySound {
         mem.open = new MemFileOpen() {
             @Override
             public int open() {
-                try {
-                    file = new RandomAccessFile(f, "r");
-                    fc = file.getChannel();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                    return LibVlc.VLC_EGENERIC;
-                }
                 return LibVlc.VLC_SUCCESS;
             }
         };
@@ -82,13 +61,6 @@ public class PlaySoundFile extends PlaySound {
         mem.close = new MemFileClose() {
             @Override
             public int close() {
-                try {
-                    fc.close();
-                    file.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    return LibVlc.VLC_EGENERIC;
-                }
                 return LibVlc.VLC_SUCCESS;
             }
         };
@@ -96,12 +68,7 @@ public class PlaySoundFile extends PlaySound {
         mem.size = new MemFileSize() {
             @Override
             public int size(LongByReference size) {
-                try {
-                    size.setValue(file.length());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    return LibVlc.VLC_EGENERIC;
-                }
+                size.setValue(-1);
                 return LibVlc.VLC_SUCCESS;
             }
         };
@@ -109,28 +76,21 @@ public class PlaySoundFile extends PlaySound {
         mem.seek = new MemFileSeek() {
             @Override
             public int seek(long pos) {
-                try {
-                    fc.position(pos);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    return LibVlc.VLC_EGENERIC;
-                }
-                return LibVlc.VLC_SUCCESS;
+                return LibVlc.VLC_EGENERIC;
             }
         };
 
         mem.read = new MemFileRead() {
             @Override
             public int read(Pointer buf, int bufSize) {
-                ByteBuffer b = ByteBuffer.allocate(bufSize);
+                byte[] b = new byte[bufSize];
                 try {
-                    int len = fc.read(b);
+                    int len = is.read(b);
 
                     if (len == -1)
                         return 0;
 
-                    byte[] bb = b.array();
-                    buf.write(0, bb, 0, len);
+                    buf.write(0, b, 0, len);
 
                     return len;
                 } catch (IOException e) {
@@ -150,7 +110,6 @@ public class PlaySoundFile extends PlaySound {
 
         libvlc_event_manager_t ev = LibVlc.INSTANCE.libvlc_media_player_event_manager(m);
         LibVlc.INSTANCE.libvlc_event_attach(ev, libvlc_event_type_t.libvlc_MediaPlayerEndReached, evets, null);
-        LibVlc.INSTANCE.libvlc_event_attach(ev, libvlc_event_type_t.libvlc_MediaPlayerPositionChanged, evets, null);
     }
 
     public void play() {

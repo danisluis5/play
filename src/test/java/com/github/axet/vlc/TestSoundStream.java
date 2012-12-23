@@ -2,20 +2,22 @@ package com.github.axet.vlc;
 
 import java.awt.BorderLayout;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 import javax.swing.JFrame;
 import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
 
 import com.github.axet.play.PlaySound;
-import com.github.axet.play.PlaySoundFile;
+import com.github.axet.play.PlaySoundStream;
 import com.sun.jna.NativeLibrary;
 
-public class TestSound extends JFrame {
+public class TestSoundStream extends JFrame {
 
     JProgressBar progressBar;
 
-    public TestSound() {
+    public TestSoundStream() {
 
         progressBar = new JProgressBar();
         progressBar.setMinimum(0);
@@ -29,8 +31,7 @@ public class TestSound extends JFrame {
         setVisible(true);
     }
 
-    PlaySoundFile p = new PlaySoundFile();
-    PlaySoundFile p2 = new PlaySoundFile();
+    PlaySoundStream p = new PlaySoundStream();
 
     public void run() {
         // NativeLibrary.addSearchPath("vlc",
@@ -41,7 +42,11 @@ public class TestSound extends JFrame {
         // File("/Users/axet/Documents/globalnews_20121222-1554a.mp3");
         File f = new File("/Users/axet/Documents/1.ogg");
 
-        p.open(f);
+        try {
+            p.open(new FileInputStream(f));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         p.addListener(new PlaySound.Listener() {
             @Override
             public void position(final float pos) {
@@ -61,15 +66,15 @@ public class TestSound extends JFrame {
             public void start() {
             }
         });
-
         p.play();
+        
     }
 
     /**
      * @param args
      */
     public static void main(String[] args) {
-        TestSound t = new TestSound();
+        TestSoundStream t = new TestSoundStream();
         t.run();
     }
 }
