@@ -11,6 +11,8 @@ public interface LibVlc extends Library {
 
     static LibVlc INSTANCE = (LibVlc) Native.loadLibrary("vlc", LibVlc.class);
 
+    // open
+
     libvlc_media_t libvlc_media_new_as_node(libvlc_instance_t p_instance, String psz_name);
 
     libvlc_media_t libvlc_media_new_fd(libvlc_instance_t p_instance, int fd);
@@ -19,11 +21,21 @@ public interface LibVlc extends Library {
 
     libvlc_media_t libvlc_media_new_location(libvlc_instance_t p_instance, String psz_mrl);
 
+    // instance
     libvlc_instance_t libvlc_new(int argc, String[] argv);
 
     libvlc_media_player_t libvlc_media_player_new(libvlc_instance_t p_libvlc_instance);
 
+    // events
+
     libvlc_event_manager_t libvlc_media_player_event_manager(libvlc_media_player_t p_mi);
+
+    int libvlc_event_attach(libvlc_event_manager_t p_event_manager, int i_event_type, libvlc_callback_t f_callback,
+            Pointer user_data);
+
+    float libvlc_media_player_get_position(libvlc_media_player_t p_mi);
+
+    // vlc video
 
     void libvlc_media_player_set_media(libvlc_media_player_t p_mi, libvlc_media_t p_md);
 
@@ -33,6 +45,13 @@ public interface LibVlc extends Library {
 
     void libvlc_media_player_set_agl(libvlc_media_player_t p_mi, Pointer drawable);
 
+    // controls
+
     int libvlc_media_player_play(libvlc_media_player_t p_mi);
 
+    int libvlc_media_player_stop(libvlc_media_player_t p_mi);
+
+    void libvlc_media_player_set_pause(libvlc_media_player_t mp, int do_pause);
+    
+    void libvlc_audio_set_volume(libvlc_media_player_t mp, int i_volume);
 }
