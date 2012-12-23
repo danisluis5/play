@@ -1,4 +1,4 @@
-package com.github.axet.play;
+package com.github.axet.play.vlc;
 
 import com.sun.jna.PointerType;
 

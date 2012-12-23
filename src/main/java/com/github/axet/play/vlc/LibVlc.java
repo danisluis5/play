@@ -1,10 +1,13 @@
-package com.github.axet.play;
+package com.github.axet.play.vlc;
 
 import com.sun.jna.Library;
 import com.sun.jna.Native;
 import com.sun.jna.Pointer;
 
 public interface LibVlc extends Library {
+
+    public static final int VLC_SUCCESS = 0;
+    public static final int VLC_EGENERIC = -1;
 
     static LibVlc INSTANCE = (LibVlc) Native.loadLibrary("vlc", LibVlc.class);
 
@@ -13,6 +16,8 @@ public interface LibVlc extends Library {
     libvlc_media_t libvlc_media_new_fd(libvlc_instance_t p_instance, int fd);
 
     libvlc_media_t libvlc_media_new_path(libvlc_instance_t p_instance, String path);
+
+    libvlc_media_t libvlc_media_new_location(libvlc_instance_t p_instance, String psz_mrl);
 
     libvlc_instance_t libvlc_new(int argc, String[] argv);
 

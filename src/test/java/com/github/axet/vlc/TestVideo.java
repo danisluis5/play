@@ -5,10 +5,10 @@ import java.awt.Canvas;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-import com.github.axet.play.LibVlc;
-import com.github.axet.play.libvlc_instance_t;
-import com.github.axet.play.libvlc_media_player_t;
-import com.github.axet.play.libvlc_media_t;
+import com.github.axet.play.vlc.LibVlc;
+import com.github.axet.play.vlc.libvlc_instance_t;
+import com.github.axet.play.vlc.libvlc_media_player_t;
+import com.github.axet.play.vlc.libvlc_media_t;
 import com.sun.jna.Native;
 import com.sun.jna.NativeLibrary;
 import com.sun.jna.Pointer;
