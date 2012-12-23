@@ -47,6 +47,8 @@ public class TestVideoFile extends JFrame {
 
         getContentPane().add(c, BorderLayout.CENTER);
 
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         setSize(500, 500);
         setLocationRelativeTo(null);
         setVisible(true);
