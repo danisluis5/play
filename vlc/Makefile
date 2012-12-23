@@ -10,7 +10,6 @@ all: pack
 build:
 	rm -rf build/VLC.app
 	mkdir -p build
-	(cd ../../vlc/ && git checkout master)
 	(cd ../../vlc/extras/tools && PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin ./bootstrap)
 	(cd ../../vlc/extras/tools && PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin make)
 	(cd ./build/ && CFLAGS=-g PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:$PWD/../../vlc/extras/tools/build/bin HOME=/ bash ../../../vlc/extras/package/macosx/build.sh)

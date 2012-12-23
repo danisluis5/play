@@ -1,26 +1,19 @@
 package com.github.axet.play;
 
-import java.io.IOException;
 import java.io.InputStream;
 
 import com.github.axet.play.vlc.LibVlc;
-import com.github.axet.play.vlc.MemFile;
-import com.github.axet.play.vlc.MemFileClose;
-import com.github.axet.play.vlc.MemFileOpen;
-import com.github.axet.play.vlc.MemFileRead;
-import com.github.axet.play.vlc.MemFileSeek;
-import com.github.axet.play.vlc.MemFileSize;
+import com.github.axet.play.vlc.MemfileStream;
 import com.github.axet.play.vlc.libvlc_callback_t;
 import com.github.axet.play.vlc.libvlc_event_manager_t;
 import com.github.axet.play.vlc.libvlc_event_type_t;
 import com.github.axet.play.vlc.libvlc_media_t;
 import com.sun.jna.Pointer;
 import com.sun.jna.ptr.IntByReference;
-import com.sun.jna.ptr.LongByReference;
 
 public class PlaySoundStream extends PlaySound {
 
-    MemFile mem;
+    MemfileStream mem;
 
     VLC vlc;
     VLCMediaPlayer m;
@@ -45,63 +38,12 @@ public class PlaySoundStream extends PlaySound {
     public PlaySoundStream() {
     }
 
-    public void open(final InputStream is) {
+    public void open(InputStream is) {
         vlc = new VLC();
 
         m = new VLCMediaPlayer();
 
-        mem = new MemFile();
-
-        mem.open = new MemFileOpen() {
-            @Override
-            public int open() {
-                return LibVlc.VLC_SUCCESS;
-            }
-        };
-
-        mem.close = new MemFileClose() {
-            @Override
-            public int close() {
-                return LibVlc.VLC_SUCCESS;
-            }
-        };
-
-        mem.size = new MemFileSize() {
-            @Override
-            public int size(LongByReference size) {
-                size.setValue(-1);
-                return LibVlc.VLC_SUCCESS;
-            }
-        };
-
-        mem.seek = new MemFileSeek() {
-            @Override
-            public int seek(long pos) {
-                return LibVlc.VLC_EGENERIC;
-            }
-        };
-
-        mem.read = new MemFileRead() {
-            @Override
-            public int read(Pointer buf, int bufSize) {
-                byte[] b = new byte[bufSize];
-                try {
-                    int len = is.read(b);
-
-                    if (len == -1)
-                        return 0;
-
-                    buf.write(0, b, 0, len);
-
-                    return len;
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    return LibVlc.VLC_EGENERIC;
-                }
-            }
-        };
-
-        mem.write();
+        mem = new MemfileStream(is);
 
         libvlc_media_t fl = LibVlc.INSTANCE.libvlc_media_new_location(vlc.getInstance(), "memfile://" + mem.getOpen()
                 + "/" + mem.getClose() + "/" + mem.getSize() + "/" + mem.getSeek() + "/" + mem.getRead());

@@ -8,19 +8,19 @@ import com.sun.jna.Structure;
 /**
  * 
  */
-public class MemFile extends Structure {
-    public MemFileOpen open;
-    public MemFileClose close;
-    public MemFileSize size;
-    public MemFileSeek seek;
-    public MemFileRead read;
+public class Memfile extends Structure {
+    public MemfileOpen open;
+    public MemfileClose close;
+    public MemfileSize size;
+    public MemfileSeek seek;
+    public MemfileRead read;
 
     @Override
     protected List<?> getFieldOrder() {
         return Arrays.asList(new String[] { "open", "size", "close", "seek", "read" });
     }
 
-    public MemFile() {
+    public Memfile() {
     }
 
     public long getOpen() {

@@ -1,33 +1,20 @@
 package com.github.axet.play;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.nio.ByteBuffer;
-import java.nio.channels.FileChannel;
 
 import com.github.axet.play.vlc.LibVlc;
-import com.github.axet.play.vlc.MemFile;
-import com.github.axet.play.vlc.MemFileClose;
-import com.github.axet.play.vlc.MemFileOpen;
-import com.github.axet.play.vlc.MemFileRead;
-import com.github.axet.play.vlc.MemFileSeek;
-import com.github.axet.play.vlc.MemFileSize;
+import com.github.axet.play.vlc.Memfile;
+import com.github.axet.play.vlc.MemfileFile;
 import com.github.axet.play.vlc.libvlc_callback_t;
 import com.github.axet.play.vlc.libvlc_event_manager_t;
 import com.github.axet.play.vlc.libvlc_event_type_t;
 import com.github.axet.play.vlc.libvlc_media_t;
 import com.sun.jna.Pointer;
 import com.sun.jna.ptr.IntByReference;
-import com.sun.jna.ptr.LongByReference;
 
 public class PlaySoundFile extends PlaySound {
 
-    MemFile mem;
-
-    RandomAccessFile file;
-    FileChannel fc;
+    MemfileFile mem;
 
     VLC vlc;
 
@@ -59,89 +46,12 @@ public class PlaySoundFile extends PlaySound {
     public PlaySoundFile() {
     }
 
-    public void open(final File f) {
+    public void open(File f) {
         vlc = new VLC();
 
         m = new VLCMediaPlayer();
 
-        mem = new MemFile();
-
-        mem.open = new MemFileOpen() {
-            @Override
-            public int open() {
-                try {
-                    file = new RandomAccessFile(f, "r");
-                    fc = file.getChannel();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                    return LibVlc.VLC_EGENERIC;
-                }
-                return LibVlc.VLC_SUCCESS;
-            }
-        };
-
-        mem.close = new MemFileClose() {
-            @Override
-            public int close() {
-                try {
-                    fc.close();
-                    file.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    return LibVlc.VLC_EGENERIC;
-                }
-                return LibVlc.VLC_SUCCESS;
-            }
-        };
-
-        mem.size = new MemFileSize() {
-            @Override
-            public int size(LongByReference size) {
-                try {
-                    size.setValue(file.length());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    return LibVlc.VLC_EGENERIC;
-                }
-                return LibVlc.VLC_SUCCESS;
-            }
-        };
-
-        mem.seek = new MemFileSeek() {
-            @Override
-            public int seek(long pos) {
-                try {
-                    fc.position(pos);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    return LibVlc.VLC_EGENERIC;
-                }
-                return LibVlc.VLC_SUCCESS;
-            }
-        };
-
-        mem.read = new MemFileRead() {
-            @Override
-            public int read(Pointer buf, int bufSize) {
-                ByteBuffer b = ByteBuffer.allocate(bufSize);
-                try {
-                    int len = fc.read(b);
-
-                    if (len == -1)
-                        return 0;
-
-                    byte[] bb = b.array();
-                    buf.write(0, bb, 0, len);
-
-                    return len;
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    return LibVlc.VLC_EGENERIC;
-                }
-            }
-        };
-
-        mem.write();
+        mem = new MemfileFile(f);
 
         libvlc_media_t fl = LibVlc.INSTANCE.libvlc_media_new_location(vlc.getInstance(), "memfile://" + mem.getOpen()
                 + "/" + mem.getClose() + "/" + mem.getSize() + "/" + mem.getSeek() + "/" + mem.getRead());
