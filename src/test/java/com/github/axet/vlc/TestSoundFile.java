@@ -11,11 +11,11 @@ import com.github.axet.play.PlaySound;
 import com.github.axet.play.PlaySoundFile;
 import com.sun.jna.NativeLibrary;
 
-public class TestSound extends JFrame {
+public class TestSoundFile extends JFrame {
 
     JProgressBar progressBar;
 
-    public TestSound() {
+    public TestSoundFile() {
 
         progressBar = new JProgressBar();
         progressBar.setMinimum(0);
@@ -41,7 +41,6 @@ public class TestSound extends JFrame {
         // File("/Users/axet/Documents/globalnews_20121222-1554a.mp3");
         File f = new File("/Users/axet/Documents/1.ogg");
 
-        p.open(f);
         p.addListener(new PlaySound.Listener() {
             @Override
             public void position(final float pos) {
@@ -62,6 +61,7 @@ public class TestSound extends JFrame {
             }
         });
 
+        p.open(f);
         p.play();
     }
 
@@ -69,7 +69,7 @@ public class TestSound extends JFrame {
      * @param args
      */
     public static void main(String[] args) {
-        TestSound t = new TestSound();
+        TestSoundFile t = new TestSoundFile();
         t.run();
     }
 }

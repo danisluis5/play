@@ -14,11 +14,13 @@ import com.github.axet.play.vlc.libvlc_callback_t;
 import com.github.axet.play.vlc.libvlc_event_manager_t;
 import com.github.axet.play.vlc.libvlc_event_type_t;
 import com.github.axet.play.vlc.libvlc_media_t;
+import com.sun.jna.Native;
 import com.sun.jna.Pointer;
 import com.sun.jna.ptr.IntByReference;
 import com.sun.jna.ptr.LongByReference;
 
-public class PlaySoundStream extends PlaySound {
+public class PlayVideoStream extends PlayVideo {
+    private static final long serialVersionUID = -2160553665816168745L;
 
     MemFile mem;
 
@@ -42,7 +44,7 @@ public class PlaySoundStream extends PlaySound {
         }
     };
 
-    public PlaySoundStream() {
+    public PlayVideoStream() {
     }
 
     public void open(final InputStream is) {
@@ -110,6 +112,8 @@ public class PlaySoundStream extends PlaySound {
 
         libvlc_event_manager_t ev = LibVlc.INSTANCE.libvlc_media_player_event_manager(m.getInstance());
         LibVlc.INSTANCE.libvlc_event_attach(ev, libvlc_event_type_t.libvlc_MediaPlayerEndReached, evets, null);
+
+        LibVlc.INSTANCE.libvlc_media_player_set_nsobject(m.getInstance(), Native.getComponentID(this));
     }
 
     public void play() {
