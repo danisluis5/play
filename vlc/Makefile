@@ -91,17 +91,60 @@ mingw32-runtime_3.17.0-0videolan_all.deb:
 /usr/bin/g++:
 	sudo apt-get install -y g++
 
-deps: /usr/bin/autoreconf /usr/bin/libtool /usr/bin/i586-mingw32msvc-gcc /usr/share/lintian/overrides/mingw32-runtime /usr/bin/lua5.1 /usr/include/libraw1394 /usr/include/dc1394 /usr/include/libavc1394 /usr/include/dvdread /usr/include/shout /usr/include/libavcodec /usr/include/libavformat /usr/include/libswscale /usr/include/libpostproc /usr/include/faad.h /usr/include/dbus-1.0/dbus /usr/include/a52dec /usr/include/xcb /usr/include/xcb/shm.h /usr/include/xcb/composite.h /usr/include/xcb/xv.h /usr/include/xcb/glx.h /usr/include/alsa /usr/include/gcrypt.h /usr/bin/msgfmt /usr/include/zlib.h /usr/bin/g++
+/usr/include/twolame.h:
+	 sudo apt-get install -y libtwolame-dev
 
-build-linux: deps
+/usr/include/dca.h:
+	sudo apt-get install -y libdca-dev
+
+/usr/lib/i386-linux-gnu/libFLAC.a:
+	sudo apt-get install -y libflac-dev
+
+/usr/include/schroedinger-1.0:
+	sudo apt-get install -y libschroedinger-dev
+
+/usr/include/x264_config.h:
+	sudo apt-get install -y libx264-dev
+
+/usr/include/caca.h:
+	sudo apt-get install -y libcaca-dev
+
+/usr/include/X11/xpm.h:
+	sudo apt-get install -y libxpm-dev
+
+/usr/include/X11/extensions/Xext.h:
+	sudo apt-get install libxext-dev
+
+/usr/include/X11/extensions/Xinerama.h:
+	sudo apt-get install -y libxinerama-dev
+
+/usr/include/ft2build.h:
+	 sudo apt-get install -y libfreetype6-dev
+
+/usr/lib/i386-linux-gnu/qt4:
+	sudo apt-get install -y libqtcore4 libqtgui4 libqt4-dev
+
+/usr/include/mpeg2dec/mpeg2.h:
+	 sudo apt-get install -y libmpeg2-4-dev
+
+/usr/include/ncursesw:
+	 sudo apt-get install -y libncursesw5-dev
+
+deps: /usr/bin/autoreconf /usr/bin/libtool /usr/bin/i586-mingw32msvc-gcc /usr/share/lintian/overrides/mingw32-runtime /usr/bin/lua5.1 /usr/include/libraw1394 /usr/include/dc1394 /usr/include/libavc1394 /usr/include/dvdread /usr/include/shout /usr/include/libavcodec /usr/include/libavformat /usr/include/libswscale /usr/include/libpostproc /usr/include/faad.h /usr/include/dbus-1.0/dbus /usr/include/a52dec /usr/include/xcb /usr/include/xcb/shm.h /usr/include/xcb/composite.h /usr/include/xcb/xv.h /usr/include/xcb/glx.h /usr/include/alsa /usr/include/gcrypt.h /usr/bin/msgfmt /usr/include/zlib.h /usr/bin/g++ /usr/include/twolame.h /usr/include/dca.h /usr/lib/i386-linux-gnu/libFLAC.a /usr/include/schroedinger-1.0 /usr/include/x264_config.h /usr/include/caca.h /usr/include/X11/xpm.h /usr/include/X11/extensions/Xext.h /usr/include/X11/extensions/Xinerama.h /usr/include/ft2build.h /usr/lib/i386-linux-gnu/qt4 /usr/include/mpeg2dec/mpeg2.h /usr/include/ncursesw
+
+linux: deps
 	mkdir -p build
 	mkdir -p ../../vlc/contrib/linux
 	(cd ../../vlc/contrib/linux && ../bootstrap)
 	(cd ../../vlc && ./bootstrap)
-	(cd ./build/ && ../../../vlc/configure)
+	(cd ./build/ && ../../../vlc/configure --enable-x11 --enable-xvideo --enable-sdl --enable-avcodec --enable-avformat \
+ --enable-swscale --enable-mad --enable-libdvbpsi --enable-a52 --enable-libmpeg2 --enable-dvdnav \
+ --enable-faad --enable-vorbis --enable-ogg --enable-theora --enable-faac --enable-mkv --enable-freetype \
+ --enable-fribidi --enable-speex --enable-flac \
+ --enable-caca --enable-skins --enable-skins2 --enable-alsa --enable-ncurses)
 	(cd ./build/ && make)
 
-build-win32: deps
+win32: deps
 	mkdir -p build
 	mkdir -p ../../vlc/contrib/win32
 	(cd ../../vlc/contrib/win32 && ../bootstrap --host=i586-mingw32msvc)
@@ -109,7 +152,7 @@ build-win32: deps
 	(cd ../../vlc && ./bootstrap)
 	(cd ./build/ && ../../../vlc/extras/package/win32/configure.sh --enable-shared --disable-mad --disable-live555 --host=i586-mingw32msvc)
 
-build-macosx:
+macosx:
 	rm -rf build/VLC.app
 	mkdir -p build
 	(cd ../../vlc/extras/tools && PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin ./bootstrap)
