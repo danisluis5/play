@@ -19,6 +19,9 @@ public class VLC {
         synchronized (lock) {
             if (count == 0) {
                 inst = LibVlc.INSTANCE.libvlc_new(vlc_args.length, vlc_args);
+
+                if (inst == null)
+                    throw new RuntimeException("Unable to instantiate VLC");
             }
 
             count++;
