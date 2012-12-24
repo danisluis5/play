@@ -125,13 +125,13 @@ public class PlaySound {
             m.close();
             m = null;
         }
-        if (vlc != null) {
-            vlc.close();
-            vlc = null;
-        }
         if (fl != null) {
             LibVlc.INSTANCE.libvlc_media_release(fl);
             fl = null;
+        }
+        if (vlc != null) {
+            vlc.close();
+            vlc = null;
         }
     }
 
