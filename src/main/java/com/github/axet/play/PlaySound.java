@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 import com.github.axet.play.vlc.LibVlc;
 import com.github.axet.play.vlc.Memfile;
-import com.github.axet.play.vlc.MemfileFile;
-import com.github.axet.play.vlc.MemfileStream;
+import com.github.axet.play.vlc.MemoryFile;
+import com.github.axet.play.vlc.MemoryStream;
 import com.github.axet.play.vlc.libvlc_callback_t;
 import com.github.axet.play.vlc.libvlc_event_manager_t;
 import com.github.axet.play.vlc.libvlc_event_type_t;
@@ -83,8 +83,9 @@ public class PlaySound {
 
         m = new VLCMediaPlayer();
 
-        libvlc_media_t fl = LibVlc.INSTANCE.libvlc_media_new_location(vlc.getInstance(), "memfile://" + mem.getOpen()
-                + "/" + mem.getClose() + "/" + mem.getSize() + "/" + mem.getSeek() + "/" + mem.getRead());
+        String mrl = "memfile://" + mem.getOpen() + "/" + mem.getClose() + "/" + mem.getSize() + "/" + mem.getSeek()
+                + "/" + mem.getRead();
+        libvlc_media_t fl = LibVlc.INSTANCE.libvlc_media_new_location(vlc.getInstance(), mrl);
 
         LibVlc.INSTANCE.libvlc_media_player_set_media(m.getInstance(), fl);
 
@@ -94,14 +95,14 @@ public class PlaySound {
     }
 
     public void open(File f) {
-        mem = new MemfileFile(f);
+        mem = new MemoryFile(f);
 
         create();
     }
 
     public void open(InputStream is) {
 
-        mem = new MemfileStream(is);
+        mem = new MemoryStream(is);
 
         create();
     }

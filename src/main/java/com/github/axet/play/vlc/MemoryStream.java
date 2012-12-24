@@ -9,9 +9,9 @@ import com.sun.jna.ptr.LongByReference;
 /**
  * 
  */
-public class MemfileStream extends Memfile {
+public class MemoryStream extends Memfile {
 
-    public MemfileStream(final InputStream is) {
+    public MemoryStream(final InputStream is) {
         open = new MemfileOpen() {
             @Override
             public int open() {

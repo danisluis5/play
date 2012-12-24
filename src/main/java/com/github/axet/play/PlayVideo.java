@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 import com.github.axet.play.vlc.LibVlc;
 import com.github.axet.play.vlc.Memfile;
-import com.github.axet.play.vlc.MemfileFile;
-import com.github.axet.play.vlc.MemfileStream;
+import com.github.axet.play.vlc.MemoryFile;
+import com.github.axet.play.vlc.MemoryStream;
 import com.github.axet.play.vlc.libvlc_callback_t;
 import com.github.axet.play.vlc.libvlc_event_manager_t;
 import com.github.axet.play.vlc.libvlc_event_type_t;
@@ -104,13 +104,13 @@ public class PlayVideo extends Canvas {
     }
 
     public void open(final File f) {
-        mem = new MemfileFile(f);
+        mem = new MemoryFile(f);
 
         create();
     }
 
     public void open(final InputStream is) {
-        mem = new MemfileStream(is);
+        mem = new MemoryStream(is);
 
         create();
     }

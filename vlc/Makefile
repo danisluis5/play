@@ -136,6 +136,7 @@ build-dep:
 deps: /usr/bin/autoreconf /usr/bin/libtool /usr/bin/i586-mingw32msvc-gcc /usr/share/lintian/overrides/mingw32-runtime /usr/bin/lua5.1 /usr/include/libraw1394 /usr/include/dc1394 /usr/include/libavc1394 /usr/include/dvdread /usr/include/shout /usr/include/libavcodec /usr/include/libavformat /usr/include/libswscale /usr/include/libpostproc /usr/include/faad.h /usr/include/dbus-1.0/dbus /usr/include/a52dec /usr/include/xcb /usr/include/xcb/shm.h /usr/include/xcb/composite.h /usr/include/xcb/xv.h /usr/include/xcb/glx.h /usr/include/alsa /usr/include/gcrypt.h /usr/bin/msgfmt /usr/include/zlib.h /usr/bin/g++ /usr/include/twolame.h /usr/include/dca.h /usr/lib/i386-linux-gnu/libFLAC.a /usr/include/schroedinger-1.0 /usr/include/x264_config.h /usr/include/caca.h /usr/include/X11/xpm.h /usr/include/X11/extensions/Xext.h /usr/include/X11/extensions/Xinerama.h /usr/include/ft2build.h /usr/lib/i386-linux-gnu/qt4 /usr/include/mpeg2dec/mpeg2.h /usr/include/ncursesw build-dep
 
 linux: build-dep
+	rm -rf natives
 	mkdir -p build
 	mkdir -p ../../vlc/contrib/linux
 	(cd ../../vlc/contrib/linux && ../bootstrap)
@@ -144,8 +145,13 @@ linux: build-dep
  --enable-swscale --enable-mad --enable-libdvbpsi --enable-a52 --enable-libmpeg2 --enable-dvdnav \
  --enable-faad --enable-vorbis --enable-ogg --enable-theora --enable-faac --enable-mkv --enable-freetype \
  --enable-fribidi --enable-speex --enable-flac \
- --enable-caca --enable-skins --enable-skins2 --enable-alsa --enable-ncurses)
+ --enable-caca --enable-skins --enable-skins2 --enable-alsa --enable-ncurses --prefix=`pwd`/vlc_install_dir)
 	(cd ./build/ && make)
+	(cd ./build/ && make install)
+	(mkdir -p natives/lib)
+	(mkdir -p natives/plugins)
+	(find build/vlc_install_dir/ -name *plugin*.so -exec cp {} $(PWD)/natives/plugins \;)
+	(cp -r build/vlc_install_dir/lib/libvlc* natives/lib)
 
 win32: deps
 	mkdir -p build

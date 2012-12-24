@@ -13,11 +13,11 @@ import com.sun.jna.ptr.LongByReference;
 /**
  * 
  */
-public class MemfileFile extends Memfile {
+public class MemoryFile extends Memfile {
     RandomAccessFile file;
     FileChannel fc;
 
-    public MemfileFile(final File f) {
+    public MemoryFile(final File f) {
         open = new MemfileOpen() {
             @Override
             public int open() {

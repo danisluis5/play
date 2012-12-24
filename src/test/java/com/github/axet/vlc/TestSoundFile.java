@@ -34,7 +34,7 @@ public class TestSoundFile extends JFrame {
     public void run() {
         // File f = new
         // File("/Users/axet/Documents/globalnews_20121222-1554a.mp3");
-        File f = new File("/Users/axet/Documents/1.ogg");
+        File f = new File("/home/axet/Desktop/1.ogg");
 
         p.addListener(new PlaySound.Listener() {
             @Override
@@ -74,7 +74,8 @@ public class TestSoundFile extends JFrame {
         // NativeLibrary.addSearchPath("vlc",
         // "/Applications/VLC.app/Contents/MacOS/lib");
 
-        NativeLibrary.addSearchPath("vlc", "/Users/axet/source/mircle/play/vlc/build/VLC.app/Contents/MacOS/lib/");
+    	NativeLibrary.addSearchPath("vlc", "/home/axet/source/mircle/play/vlc/natives/lib");
+        //NativeLibrary.addSearchPath("vlc", "/Users/axet/source/mircle/play/vlc/build/VLC.app/Contents/MacOS/lib/");
 
         TestSoundFile t = new TestSoundFile();
         t.run();

@@ -3,11 +3,9 @@ package com.github.axet.play.vlc;
 import java.util.Arrays;
 import java.util.List;
 
+import com.sun.jna.Pointer;
 import com.sun.jna.Structure;
 
-/**
- * 
- */
 public class Memfile extends Structure {
     public MemfileOpen open;
     public MemfileClose close;
@@ -17,29 +15,33 @@ public class Memfile extends Structure {
 
     @Override
     protected List<?> getFieldOrder() {
-        return Arrays.asList(new String[] { "open", "size", "close", "seek", "read" });
+        return Arrays.asList(new String[] { "open", "close", "size", "seek", "read" });
     }
 
     public Memfile() {
     }
 
+    public long field(String name) {
+        return Pointer.nativeValue(getPointer().getPointer((fieldOffset(name))));
+    }
+
     public long getOpen() {
-        return getPointer().getLong(fieldOffset("open"));
+        return field("open");
     }
 
     public long getClose() {
-        return getPointer().getLong(fieldOffset("close"));
+        return field("close");
     }
 
     public long getSize() {
-        return getPointer().getLong(fieldOffset("size"));
+        return field("size");
     }
 
     public long getSeek() {
-        return getPointer().getLong(fieldOffset("seek"));
+        return field("seek");
     }
 
     public long getRead() {
-        return getPointer().getLong(fieldOffset("read"));
+        return field("read");
     }
 }
