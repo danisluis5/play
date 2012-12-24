@@ -34,7 +34,7 @@ public class VLCWarmup {
 
     static Object lock = new Object();
 
-    libvlc_callback_t evets = new libvlc_callback_t() {
+    static libvlc_callback_t evets = new libvlc_callback_t() {
         @Override
         public void libvlc_callback(IntByReference p_event, Pointer p_user_data) {
             switch (p_event.getValue()) {
@@ -49,7 +49,7 @@ public class VLCWarmup {
         }
     };
 
-    public VLCWarmup(VLC vlc) {
+    static public void warmup(VLC vlc) {
         libvlc_media_player_t m = LibVlc.INSTANCE.libvlc_media_player_new(vlc.getInstance());
 
         MemoryStream mem = new MemoryStream(VLCWarmup.class.getResourceAsStream("empty.ogg"));
