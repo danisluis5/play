@@ -7,7 +7,27 @@ all: pack
 
 .PHONY: build
 
-build:
+/usr/bin/libtool:
+	sudo apt-get install -y libtool
+
+/usr/bin/autoreconf:
+	sudo apt-get install -y autoconf
+
+/usr/bin/i586-mingw32msvc-gcc:
+	sudo apt-get install -y gcc-mingw32
+
+/usr/share/lintian/overrides/mingw32-runtime:
+	sudo apt-get install -y mingw32-runtime
+
+build-win32: /usr/bin/autoreconf /usr/bin/libtool /usr/bin/i586-mingw32msvc-gcc /usr/share/lintian/overrides/mingw32-runtime
+	mkdir -p build
+	mkdir -p ../../vlc/contrib/win32
+	(cd ../../vlc/contrib/win32 && ../bootstrap --host=i586-mingw32msvc)
+	(if [ ! -e ../../vlc/contrib/i586-mingw32msvc ]; then cd ../../vlc/contrib/win32 && make prebuilt; fi)
+	(cd ../../vlc && ./bootstrap)
+	(cd ./build/ && ../../../vlc/extras/package/win32/configure.sh --enable-shared --host=i586-mingw32msvc)
+
+build-macosx:
 	rm -rf build/VLC.app
 	mkdir -p build
 	(cd ../../vlc/extras/tools && PATH=/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin ./bootstrap)
