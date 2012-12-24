@@ -53,9 +53,7 @@ public class VLCWarmup {
         libvlc_media_player_t m = LibVlc.INSTANCE.libvlc_media_player_new(vlc.getInstance());
 
         MemoryStream mem = new MemoryStream(VLCWarmup.class.getResourceAsStream("empty.ogg"));
-        String mrl = "memfile://" + mem.getOpen() + "/" + mem.getClose() + "/" + mem.getSize() + "/" + mem.getSeek()
-                + "/" + mem.getRead();
-        libvlc_media_t fl = LibVlc.INSTANCE.libvlc_media_new_location(vlc.getInstance(), mrl);
+        libvlc_media_t fl = LibVlc.INSTANCE.libvlc_media_new_location(vlc.getInstance(), mem.getMrl());
 
         LibVlc.INSTANCE.libvlc_media_player_set_media(m, fl);
 

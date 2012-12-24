@@ -44,4 +44,8 @@ public class Memfile extends Structure {
     public long getRead() {
         return field("read");
     }
+
+    public String getMrl() {
+        return "memfile://" + getOpen() + "/" + getClose() + "/" + getSize() + "/" + getSeek() + "/" + getRead();
+    }
 }

@@ -91,8 +91,7 @@ public class PlayVideo extends Canvas {
 
         m = new VLCMediaPlayer();
 
-        libvlc_media_t fl = LibVlc.INSTANCE.libvlc_media_new_location(vlc.getInstance(), "memfile://" + mem.getOpen()
-                + "/" + mem.getClose() + "/" + mem.getSize() + "/" + mem.getSeek() + "/" + mem.getRead());
+        libvlc_media_t fl = LibVlc.INSTANCE.libvlc_media_new_location(vlc.getInstance(), mem.getMrl());
 
         LibVlc.INSTANCE.libvlc_media_player_set_media(m.getInstance(), fl);
 

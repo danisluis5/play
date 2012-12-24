@@ -83,9 +83,7 @@ public class PlaySound {
 
         m = new VLCMediaPlayer();
 
-        String mrl = "memfile://" + mem.getOpen() + "/" + mem.getClose() + "/" + mem.getSize() + "/" + mem.getSeek()
-                + "/" + mem.getRead();
-        libvlc_media_t fl = LibVlc.INSTANCE.libvlc_media_new_location(vlc.getInstance(), mrl);
+        libvlc_media_t fl = LibVlc.INSTANCE.libvlc_media_new_location(vlc.getInstance(), mem.getMrl());
 
         LibVlc.INSTANCE.libvlc_media_player_set_media(m.getInstance(), fl);
 
