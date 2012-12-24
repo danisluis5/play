@@ -130,9 +130,12 @@ mingw32-runtime_3.17.0-0videolan_all.deb:
 /usr/include/ncursesw:
 	 sudo apt-get install -y libncursesw5-dev
 
-deps: /usr/bin/autoreconf /usr/bin/libtool /usr/bin/i586-mingw32msvc-gcc /usr/share/lintian/overrides/mingw32-runtime /usr/bin/lua5.1 /usr/include/libraw1394 /usr/include/dc1394 /usr/include/libavc1394 /usr/include/dvdread /usr/include/shout /usr/include/libavcodec /usr/include/libavformat /usr/include/libswscale /usr/include/libpostproc /usr/include/faad.h /usr/include/dbus-1.0/dbus /usr/include/a52dec /usr/include/xcb /usr/include/xcb/shm.h /usr/include/xcb/composite.h /usr/include/xcb/xv.h /usr/include/xcb/glx.h /usr/include/alsa /usr/include/gcrypt.h /usr/bin/msgfmt /usr/include/zlib.h /usr/bin/g++ /usr/include/twolame.h /usr/include/dca.h /usr/lib/i386-linux-gnu/libFLAC.a /usr/include/schroedinger-1.0 /usr/include/x264_config.h /usr/include/caca.h /usr/include/X11/xpm.h /usr/include/X11/extensions/Xext.h /usr/include/X11/extensions/Xinerama.h /usr/include/ft2build.h /usr/lib/i386-linux-gnu/qt4 /usr/include/mpeg2dec/mpeg2.h /usr/include/ncursesw
+build-dep:
+	sudo apt-get build-dep -y vlc
 
-linux: deps
+deps: /usr/bin/autoreconf /usr/bin/libtool /usr/bin/i586-mingw32msvc-gcc /usr/share/lintian/overrides/mingw32-runtime /usr/bin/lua5.1 /usr/include/libraw1394 /usr/include/dc1394 /usr/include/libavc1394 /usr/include/dvdread /usr/include/shout /usr/include/libavcodec /usr/include/libavformat /usr/include/libswscale /usr/include/libpostproc /usr/include/faad.h /usr/include/dbus-1.0/dbus /usr/include/a52dec /usr/include/xcb /usr/include/xcb/shm.h /usr/include/xcb/composite.h /usr/include/xcb/xv.h /usr/include/xcb/glx.h /usr/include/alsa /usr/include/gcrypt.h /usr/bin/msgfmt /usr/include/zlib.h /usr/bin/g++ /usr/include/twolame.h /usr/include/dca.h /usr/lib/i386-linux-gnu/libFLAC.a /usr/include/schroedinger-1.0 /usr/include/x264_config.h /usr/include/caca.h /usr/include/X11/xpm.h /usr/include/X11/extensions/Xext.h /usr/include/X11/extensions/Xinerama.h /usr/include/ft2build.h /usr/lib/i386-linux-gnu/qt4 /usr/include/mpeg2dec/mpeg2.h /usr/include/ncursesw build-dep
+
+linux: build-dep
 	mkdir -p build
 	mkdir -p ../../vlc/contrib/linux
 	(cd ../../vlc/contrib/linux && ../bootstrap)
