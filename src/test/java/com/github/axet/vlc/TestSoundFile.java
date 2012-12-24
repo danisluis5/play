@@ -74,7 +74,7 @@ public class TestSoundFile extends JFrame {
         // NativeLibrary.addSearchPath("vlc",
         // "/Applications/VLC.app/Contents/MacOS/lib");
 
-    	NativeLibrary.addSearchPath("vlc", "/home/axet/source/mircle/play/vlc/natives/lib");
+        NativeLibrary.addSearchPath("vlc", "/Users/axet/source/mircle/play/vlc/natives/lib");
         //NativeLibrary.addSearchPath("vlc", "/Users/axet/source/mircle/play/vlc/build/VLC.app/Contents/MacOS/lib/");
 
         TestSoundFile t = new TestSoundFile();
