@@ -2,7 +2,9 @@
 
 sudo apt-get build-dep -y vlc
 
-OPTS="--enable-x11 --enable-xvideo --enable-sdl --enable-avcodec --enable-avformat \
+# disable lua https://github.com/axet/play/issues/1
+
+OPTS="--disable-lua --enable-x11 --enable-xvideo --enable-sdl --enable-avcodec --enable-avformat \
  --enable-swscale --enable-mad --enable-libdvbpsi --enable-a52 --enable-libmpeg2 --enable-dvdnav \
  --enable-faad --enable-vorbis --enable-ogg --enable-theora --enable-faac --enable-mkv --enable-freetype \
  --enable-fribidi --enable-speex --enable-flac \
@@ -12,7 +14,7 @@ rm -rf natives
 mkdir -p build
 mkdir -p ../../vlc/contrib/linux
 (cd ../../vlc/contrib/linux && ../bootstrap) || exit 1
-(if ! [ -e "../../vlc/configure" ]; then cd ../../vlc && ./bootstrap; fi) || exit 1
+(if ! [ -e "../../vlc/configure" ]; then cd ../../vlc && autoreconf && ./bootstrap; fi) || exit 1
 (if [ "../../vlc/configure" -nt "./build/Makefile" ]; then cd ./build/ && ../../../vlc/configure ${OPTS} --prefix=`pwd`/vlc_install_dir; fi) || exit 1
 (cd ./build/ && make) || exit 1
 (cd ./build/ && make install) || exit 1
