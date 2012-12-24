@@ -49,6 +49,8 @@ public interface LibVlc extends Library {
 
     void libvlc_media_player_set_nsobject(libvlc_media_player_t p_mi, long drawable);
 
+    void libvlc_media_player_set_xwindow(libvlc_media_player_t p_mi, long drawable);
+
     void libvlc_media_player_set_agl(libvlc_media_player_t p_mi, Pointer drawable);
 
     // controls

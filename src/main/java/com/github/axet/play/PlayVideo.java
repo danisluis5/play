@@ -16,6 +16,7 @@ import com.github.axet.play.vlc.libvlc_event_manager_t;
 import com.github.axet.play.vlc.libvlc_event_type_t;
 import com.github.axet.play.vlc.libvlc_media_t;
 import com.sun.jna.Native;
+import com.sun.jna.Platform;
 import com.sun.jna.Pointer;
 import com.sun.jna.ptr.IntByReference;
 
@@ -101,7 +102,11 @@ public class PlayVideo extends Canvas {
         LibVlc.INSTANCE.libvlc_event_attach(ev, libvlc_event_type_t.libvlc_MediaPlayerEndReached, evets, null);
         LibVlc.INSTANCE.libvlc_event_attach(ev, libvlc_event_type_t.libvlc_MediaPlayerPositionChanged, evets, null);
 
-        LibVlc.INSTANCE.libvlc_media_player_set_nsobject(m.getInstance(), Native.getComponentID(this));
+        if (Platform.isMac())
+            LibVlc.INSTANCE.libvlc_media_player_set_nsobject(m.getInstance(), Native.getComponentID(this));
+
+        if (Platform.isLinux())
+            LibVlc.INSTANCE.libvlc_media_player_set_xwindow(m.getInstance(), Native.getComponentID(this));
     }
 
     public void open(final File f) {

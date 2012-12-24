@@ -5,7 +5,7 @@ import com.github.axet.play.vlc.libvlc_instance_t;
 import com.github.axet.play.vlc.libvlc_media_t;
 
 public class VLC {
-    static String vlc_args[] = { "-I", "dumy", "--ignore-config" };
+    static String vlc_args[] = { "-I", "dumy", "--ignore-config", "--no-xlib", "--no-video-title-show" };
 
     static libvlc_instance_t inst;
 
