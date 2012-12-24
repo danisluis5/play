@@ -22,6 +22,8 @@ public class VLC {
 
                 if (inst == null)
                     throw new RuntimeException("Unable to instantiate VLC");
+                
+                new VLCWarmup(this);
             }
 
             count++;
