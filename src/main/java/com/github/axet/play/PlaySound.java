@@ -44,6 +44,8 @@ public class PlaySound {
 
     VLCMediaPlayer m;
 
+    libvlc_media_t fl;
+
     libvlc_callback_t evets = new libvlc_callback_t() {
         @Override
         public void libvlc_callback(IntByReference p_event, Pointer p_user_data) {
@@ -53,7 +55,6 @@ public class PlaySound {
                     l.position(1.0f);
                     l.stop();
                 }
-                stop();
                 break;
             case libvlc_event_type_t.libvlc_MediaPlayerPositionChanged:
                 for (Listener l : listeners) {
@@ -83,7 +84,7 @@ public class PlaySound {
 
         m = new VLCMediaPlayer();
 
-        libvlc_media_t fl = LibVlc.INSTANCE.libvlc_media_new_location(vlc.getInstance(), mem.getMrl());
+        fl = LibVlc.INSTANCE.libvlc_media_new_location(vlc.getInstance(), mem.getMrl());
 
         LibVlc.INSTANCE.libvlc_media_player_set_media(m.getInstance(), fl);
 
@@ -127,6 +128,10 @@ public class PlaySound {
         if (vlc != null) {
             vlc.close();
             vlc = null;
+        }
+        if (fl != null) {
+            LibVlc.INSTANCE.libvlc_media_release(fl);
+            fl = null;
         }
     }
 

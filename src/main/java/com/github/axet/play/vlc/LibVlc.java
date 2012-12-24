@@ -21,6 +21,8 @@ public interface LibVlc extends Library {
 
     libvlc_media_t libvlc_media_new_location(libvlc_instance_t p_instance, String psz_mrl);
 
+    void libvlc_media_release(libvlc_media_t p_md);
+
     // instance
     libvlc_instance_t libvlc_new(int argc, String[] argv);
 

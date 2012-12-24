@@ -72,6 +72,8 @@ public class VLCWarmup {
         }
 
         LibVlc.INSTANCE.libvlc_media_player_release(m);
+        
+        LibVlc.INSTANCE.libvlc_media_release(fl);
     }
 
 }

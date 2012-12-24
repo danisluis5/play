@@ -52,6 +52,8 @@ public class PlayVideo extends Canvas {
 
     VLCMediaPlayer m;
 
+    libvlc_media_t fl;
+
     libvlc_callback_t evets = new libvlc_callback_t() {
         @Override
         public void libvlc_callback(IntByReference p_event, Pointer p_user_data) {
@@ -91,7 +93,7 @@ public class PlayVideo extends Canvas {
 
         m = new VLCMediaPlayer();
 
-        libvlc_media_t fl = LibVlc.INSTANCE.libvlc_media_new_location(vlc.getInstance(), mem.getMrl());
+        fl = LibVlc.INSTANCE.libvlc_media_new_location(vlc.getInstance(), mem.getMrl());
 
         LibVlc.INSTANCE.libvlc_media_player_set_media(m.getInstance(), fl);
 
@@ -136,6 +138,10 @@ public class PlayVideo extends Canvas {
         if (vlc != null) {
             vlc.close();
             vlc = null;
+        }
+        if (fl != null) {
+            LibVlc.INSTANCE.libvlc_media_release(fl);
+            fl = null;
         }
     }
 
