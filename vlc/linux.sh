@@ -30,9 +30,9 @@ rm -f play-mac.jar
 mvn install:install-file -Dfile=play-mac.jar \
   -DgroupId=com.github.axet \
   -DartifactId=play \
-  -Dversion=0.0.0-SNAPSHOT \
+  -Dversion=0.0.1 \
   -Dpackaging=jar \
-  -Dclassifier=natives-mac \
+  -Dclassifier=natives-linux-x86_64 \
   -DgeneratePom=true \
   -DcreateChecksum=true
 
