@@ -40,7 +40,7 @@ public class VLC {
         NativeLibrary.getInstance("vlccore");
         NativeLibrary.getInstance("vlc");
 
-        if (Platform.isLinux()) {
+        if (Platform.isLinux() || Platform.isMac()) {
             LibC.INSTANCE.setenv("VLC_PLUGIN_PATH", path, 1);
         }
     }
