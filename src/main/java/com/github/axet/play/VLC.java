@@ -36,8 +36,12 @@ public class VLC {
     public static void setPath(String path) {
         NativeLibrary.addSearchPath("vlccore", path);
         NativeLibrary.addSearchPath("vlc", path);
+
+        NativeLibrary.getInstance("vlccore");
+        NativeLibrary.getInstance("vlc");
+
         if (Platform.isLinux()) {
-           ;// LibC.INSTANCE.setenv("VLC_PLUGIN_PATH", path, 1);
+            LibC.INSTANCE.setenv("VLC_PLUGIN_PATH", path, 1);
         }
     }
 
