@@ -9,7 +9,7 @@ rm -f libvlc-linux-x86.jar
 
 mvn install:install-file -Dfile=libvlc-linux-x86.jar \
   -DgroupId=com.github.axet.play \
-  -DpomFile=libvlc-linux-x86.pom \
+  -DpomFile=libvlc.pom \
   -Dpackaging=jar \
-  -Dclassifier=natives
+  -Dclassifier=natives-linux-x86
 
