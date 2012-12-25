@@ -62,8 +62,7 @@ public class TestVideoFile extends JFrame {
         setVisible(true);
     }
 
-    public void run() {
-        File f = new File("/home/axet/Desktop/10 Second Holiday Video.mp4");
+    public void run(File f) {
         c.open(f);
         c.play();
     }
@@ -72,9 +71,8 @@ public class TestVideoFile extends JFrame {
      * @param args
      */
     public static void main(String[] args) {
-        VLC.setPath("/home/axet/source/mircle/play/vlc/natives");
-
+        File f = new File(args[0]);
         TestVideoFile t = new TestVideoFile();
-        t.run();
+        t.run(f);
     }
 }

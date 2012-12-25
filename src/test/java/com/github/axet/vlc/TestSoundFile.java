@@ -8,7 +8,6 @@ import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
 
 import com.github.axet.play.PlaySound;
-import com.github.axet.play.VLC;
 
 public class TestSoundFile extends JFrame {
 
@@ -31,11 +30,7 @@ public class TestSoundFile extends JFrame {
     PlaySound p = new PlaySound();
     PlaySound p2 = new PlaySound();
 
-    public void run() {
-        // File f = new
-        // File("/Users/axet/Documents/globalnews_20121222-1554a.mp3");
-        File f = new File("/home/axet/Desktop/1.ogg");
-
+    public void run(File f) {
         p.addListener(new PlaySound.Listener() {
             @Override
             public void position(final float pos) {
@@ -78,9 +73,8 @@ public class TestSoundFile extends JFrame {
      * @param args
      */
     public static void main(String[] args) {
-        VLC.setPath("/home/axet/source/mircle/play/vlc/natives");
-
+        File f = new File(args[0]);
         TestSoundFile t = new TestSoundFile();
-        t.run();
+        t.run(f);
     }
 }

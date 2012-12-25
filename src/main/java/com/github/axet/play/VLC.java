@@ -1,5 +1,9 @@
 package com.github.axet.play;
 
+import java.io.File;
+
+import org.apache.commons.io.FileUtils;
+
 import com.github.axet.play.vlc.LibC;
 import com.github.axet.play.vlc.LibVlc;
 import com.github.axet.play.vlc.libvlc_instance_t;
@@ -18,6 +22,17 @@ public class VLC {
 
     boolean close = false;
 
+    static {
+        // under debugger, eclipse + maven-nativedependencies-plugin
+        String path = VLC.class.getProtectionDomain().getCodeSource().getLocation().getFile();
+        File natives = new File(path);
+        natives = new File(natives.getParent());
+        natives = FileUtils.getFile(natives, "natives");
+        if (natives.exists()) {
+            VLC.setPath(natives);
+        }
+    }
+
     public VLC() {
         synchronized (lock) {
             if (count == 0) {
@@ -33,15 +48,15 @@ public class VLC {
         }
     }
 
-    public static void setPath(String path) {
-        NativeLibrary.addSearchPath("vlccore", path);
-        NativeLibrary.addSearchPath("vlc", path);
+    public static void setPath(File path) {
+        NativeLibrary.addSearchPath("vlccore", path.toString());
+        NativeLibrary.addSearchPath("vlc", path.toString());
 
         NativeLibrary.getInstance("vlccore");
         NativeLibrary.getInstance("vlc");
 
         if (Platform.isLinux() || Platform.isMac()) {
-            LibC.INSTANCE.setenv("VLC_PLUGIN_PATH", path, 1);
+            LibC.INSTANCE.setenv("VLC_PLUGIN_PATH", path.toString(), 1);
         }
     }
 
