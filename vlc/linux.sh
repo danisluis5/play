@@ -20,6 +20,6 @@ mkdir -p ../../vlc/contrib/linux
 (cd ./build/ && make install) || exit 1
 (mkdir -p natives/lib) || exit 1
 (mkdir -p natives/plugins) || exit 1
-(find build/vlc_install_dir/ -name *plugin*.so -exec cp {} ${PWD}/natives/plugins \;) || exit 1
-(cp -r build/vlc_install_dir/lib/libvlc* natives/lib) || exit 1
+(find build/vlc_install_dir/ -name *plugin*.so -exec cp {} ${PWD}/natives/ \;) || exit 1
+(cp -r build/vlc_install_dir/lib/libvlc* natives/) || exit 1
 
