@@ -116,7 +116,24 @@
         </dependency>
       </dependencies>
     </profile>
-  </profiles>
+    <profile>
+      <id>mac-64</id>
+      <activation>
+        <os>
+          <name>mac os x</name>
+          <arch>x86_64</arch>
+        </os>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>com.github.axet.play</groupId>
+          <artifactId>libvlc</artifactId>
+          <version>2.0.5-1</version>
+          <classifier>natives-mac-x86_64</classifier>
+        </dependency>
+      </dependencies>
+    </profile>
+    </profiles>
 
 
   <build>
