@@ -7,7 +7,7 @@ mvn gpg:sign-and-deploy-file \
   -Durl=https://oss.sonatype.org/service/local/staging/deploy/maven2/ \
   -DrepositoryId=sonatype-nexus-staging \
   -DpomFile=libvlc.pom \
-  -Dclassifier=natives-x86_64 \
+  -Dclassifier=natives-linux-x86_64 \
   -Dpackaging=jar \
   -Dfile=libvlc-linux-x86_64.jar
 
