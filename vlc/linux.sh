@@ -23,16 +23,13 @@ mkdir -p ../../vlc/contrib/linux
 (cp -r build/vlc_install_dir/lib/libvlc* natives/) || exit 1
 
 # pack:
-rm -f play-mac.jar
+rm -f libvlc-linux-x86_64.jar
 
-(cd natives && jar cf ../play-mac.jar *)
-	
-mvn install:install-file -Dfile=play-mac.jar \
-  -DgroupId=com.github.axet \
-  -DartifactId=play \
-  -Dversion=0.0.1 \
+(cd natives && jar cf ../libvlc-linux-x86_64.jar *)
+
+mvn install:install-file -Dfile=libvlc-linux-x86_64.jar \
+  -DgroupId=com.github.axet.play \
+  -DpomFile=libvlc-linux-x86_64.pom \
   -Dpackaging=jar \
-  -Dclassifier=natives-linux-x86_64 \
-  -DgeneratePom=true \
-  -DcreateChecksum=true
+  -Dclassifier=natives-linux-x86_64
 
