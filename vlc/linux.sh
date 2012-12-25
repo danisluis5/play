@@ -18,8 +18,7 @@ mkdir -p ../../vlc/contrib/linux
 (if [ "../../vlc/configure" -nt "./build/Makefile" ]; then cd ./build/ && ../../../vlc/configure ${OPTS} --prefix=`pwd`/vlc_install_dir; fi) || exit 1
 (cd ./build/ && make) || exit 1
 (cd ./build/ && make install) || exit 1
-(mkdir -p natives/lib) || exit 1
-(mkdir -p natives/plugins) || exit 1
+(mkdir -p natives) || exit 1
 (find build/vlc_install_dir/ -name *plugin*.so -exec cp {} ${PWD}/natives/ \;) || exit 1
 (cp -r build/vlc_install_dir/lib/libvlc* natives/) || exit 1
 
