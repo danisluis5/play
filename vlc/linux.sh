@@ -22,3 +22,13 @@ mkdir -p ../../vlc/contrib/linux
 (find build/vlc_install_dir/ -name *plugin*.so -exec cp {} ${PWD}/natives/ \;) || exit 1
 (cp -r build/vlc_install_dir/lib/libvlc* natives/) || exit 1
 
+# pack:
+rm -f libvlc-linux-x86_64.jar
+
+(cd natives && jar cf ../libvlc-linux-x86_64.jar *)
+
+mvn install:install-file -Dfile=libvlc-linux-x86_64.jar \
+  -DgroupId=com.github.axet.play \
+  -DpomFile=libvlc.pom \
+  -Dpackaging=jar \
+  -Dclassifier=natives-linux-x86_64
