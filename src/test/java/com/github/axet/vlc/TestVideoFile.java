@@ -8,6 +8,7 @@ import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
 
 import com.github.axet.play.PlayVideo;
+import com.github.axet.play.VLC;
 import com.sun.jna.NativeLibrary;
 
 public class TestVideoFile extends JFrame {
@@ -18,6 +19,8 @@ public class TestVideoFile extends JFrame {
     JProgressBar progressBar;
 
     public TestVideoFile() {
+        super("PLAYER");
+
         progressBar = new JProgressBar();
         getContentPane().add(progressBar, BorderLayout.SOUTH);
 
@@ -60,7 +63,7 @@ public class TestVideoFile extends JFrame {
     }
 
     public void run() {
-        File f = new File("/Users/axet/Documents/Morrowind - Rats In My House (Let's Play #2).mp4");
+        File f = new File("/home/axet/Desktop/10 Second Holiday Video.mp4");
         c.open(f);
         c.play();
     }
@@ -69,10 +72,7 @@ public class TestVideoFile extends JFrame {
      * @param args
      */
     public static void main(String[] args) {
-        // NativeLibrary.addSearchPath("vlc",
-        // "/Applications/VLC.app/Contents/MacOS/lib");
-
-        NativeLibrary.addSearchPath("vlc", "/Users/axet/source/mircle/play/vlc/build/VLC.app/Contents/MacOS/lib/");
+        VLC.setPath("/home/axet/source/mircle/play/vlc/natives");
 
         TestVideoFile t = new TestVideoFile();
         t.run();
