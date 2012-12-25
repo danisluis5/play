@@ -2,6 +2,7 @@ package com.github.axet.play.vlc;
 
 import com.sun.jna.Library;
 import com.sun.jna.Native;
+import com.sun.jna.NativeLibrary;
 import com.sun.jna.Pointer;
 
 public interface LibVlc extends Library {

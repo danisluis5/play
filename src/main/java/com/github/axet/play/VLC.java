@@ -1,8 +1,11 @@
 package com.github.axet.play;
 
+import com.github.axet.play.vlc.LibC;
 import com.github.axet.play.vlc.LibVlc;
 import com.github.axet.play.vlc.libvlc_instance_t;
 import com.github.axet.play.vlc.libvlc_media_t;
+import com.sun.jna.NativeLibrary;
+import com.sun.jna.Platform;
 
 public class VLC {
     static String vlc_args[] = { "-I", "dumy", "--ignore-config", "--no-xlib", "--no-video-title-show" };
@@ -27,6 +30,14 @@ public class VLC {
             }
 
             count++;
+        }
+    }
+
+    public static void setPath(String path) {
+        NativeLibrary.addSearchPath("vlccore", path);
+        NativeLibrary.addSearchPath("vlc", path);
+        if (Platform.isLinux()) {
+           ;// LibC.INSTANCE.setenv("VLC_PLUGIN_PATH", path, 1);
         }
     }
 
