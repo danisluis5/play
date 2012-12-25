@@ -31,5 +31,5 @@ mvn install:install-file -Dfile=libvlc-linux-x86_64.jar \
   -DgroupId=com.github.axet.play \
   -DpomFile=libvlc-linux-x86_64.pom \
   -Dpackaging=jar \
-  -Dclassifier=natives-linux-x86_64
+  -Dclassifier=natives
 
