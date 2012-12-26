@@ -2,6 +2,7 @@ package com.github.axet.play;
 
 import java.io.File;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 
 import com.github.axet.play.vlc.LibVlc;
@@ -79,12 +80,12 @@ public class PlaySound {
         listeners.remove(l);
     }
 
-    void create() {
+    void create(String mrl) {
         vlc = new VLC();
 
         m = new VLCMediaPlayer();
 
-        fl = LibVlc.INSTANCE.libvlc_media_new_location(vlc.getInstance(), mem.getMrl());
+        fl = LibVlc.INSTANCE.libvlc_media_new_location(vlc.getInstance(), mrl);
 
         LibVlc.INSTANCE.libvlc_media_player_set_media(m.getInstance(), fl);
 
@@ -93,17 +94,21 @@ public class PlaySound {
         LibVlc.INSTANCE.libvlc_event_attach(ev, libvlc_event_type_t.libvlc_MediaPlayerPositionChanged, evets, null);
     }
 
+    public void open(URL f) {
+        create(f.toString());
+    }
+
     public void open(File f) {
         mem = new MemoryFile(f);
 
-        create();
+        create(mem.getMrl());
     }
 
     public void open(InputStream is) {
 
         mem = new MemoryStream(is);
 
-        create();
+        create(mem.getMrl());
     }
 
     public void play() {
