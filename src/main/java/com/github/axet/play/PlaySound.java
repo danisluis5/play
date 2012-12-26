@@ -111,6 +111,9 @@ public class PlaySound {
     }
 
     public void open(URL f) {
+        if (fl != null)
+            throw new RuntimeException("close first");
+
         create(f.toString());
     }
 
