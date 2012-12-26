@@ -20,7 +20,8 @@ public class PlaySound {
 
     public interface Listener {
         /**
-         * start playing
+         * start playing after buffering. application may want to show waitnit
+         * currsor before actual play starts
          */
         public void start();
 
@@ -51,6 +52,17 @@ public class PlaySound {
         @Override
         public void libvlc_callback(IntByReference p_event, Pointer p_user_data) {
             switch (p_event.getValue()) {
+            case libvlc_event_type_t.libvlc_MediaPlayerVout:
+                break;
+            case libvlc_event_type_t.libvlc_MediaPlayerOpening:
+                break;
+            case libvlc_event_type_t.libvlc_MediaPlayerBuffering:
+                break;
+            case libvlc_event_type_t.libvlc_MediaPlayerPlaying:
+                for (Listener l : listeners) {
+                    l.start();
+                }
+                break;
             case libvlc_event_type_t.libvlc_MediaPlayerEndReached:
                 for (Listener l : listeners) {
                     l.position(1.0f);
@@ -90,6 +102,10 @@ public class PlaySound {
         LibVlc.INSTANCE.libvlc_media_player_set_media(m.getInstance(), fl);
 
         libvlc_event_manager_t ev = LibVlc.INSTANCE.libvlc_media_player_event_manager(m.getInstance());
+        LibVlc.INSTANCE.libvlc_event_attach(ev, libvlc_event_type_t.libvlc_MediaPlayerVout, evets, null);
+        LibVlc.INSTANCE.libvlc_event_attach(ev, libvlc_event_type_t.libvlc_MediaPlayerOpening, evets, null);
+        LibVlc.INSTANCE.libvlc_event_attach(ev, libvlc_event_type_t.libvlc_MediaPlayerBuffering, evets, null);
+        LibVlc.INSTANCE.libvlc_event_attach(ev, libvlc_event_type_t.libvlc_MediaPlayerPlaying, evets, null);
         LibVlc.INSTANCE.libvlc_event_attach(ev, libvlc_event_type_t.libvlc_MediaPlayerEndReached, evets, null);
         LibVlc.INSTANCE.libvlc_event_attach(ev, libvlc_event_type_t.libvlc_MediaPlayerPositionChanged, evets, null);
     }

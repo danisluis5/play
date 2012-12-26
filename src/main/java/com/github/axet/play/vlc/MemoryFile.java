@@ -75,7 +75,7 @@ public class MemoryFile extends Memfile {
         read = new MemfileRead() {
             @Override
             public int read(Pointer buf, int bufSize) {
-                ByteBuffer b = ByteBuffer.allocate(bufSize);
+                ByteBuffer b = ByteBuffer.allocate(bufSize/90);
                 try {
                     int len = fc.read(b);
 
