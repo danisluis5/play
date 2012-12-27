@@ -2,6 +2,8 @@ package com.github.axet.play;
 
 import java.io.File;
 
+import javax.swing.JOptionPane;
+
 import org.apache.commons.io.FileUtils;
 
 import com.github.axet.play.vlc.LibC;
@@ -23,7 +25,9 @@ public class VLC {
     boolean close = false;
 
     static {
-        // under debugger, eclipse + maven-nativedependencies-plugin
+        // use eclipse + maven-nativedependencies-plugin
+        
+        // 1) under debugger, /Users/axet/source/mircle/play/target/classes/
         String path = VLC.class.getProtectionDomain().getCodeSource().getLocation().getFile();
         File natives = new File(path);
         natives = new File(natives.getParent());
@@ -31,6 +35,8 @@ public class VLC {
         if (natives.exists()) {
             VLC.setPath(natives);
         }
+        // 2) mac osx wihtout debugger path - /Users/axet/source/mircle/mircle/macosx/Mircle.app/Contents/Resources/Java/mircle.jar
+        // case above 1) works prefectly
     }
 
     public VLC() {
