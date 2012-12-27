@@ -1,6 +1,9 @@
 package com.github.axet.play;
 
+import java.awt.image.Kernel;
 import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.security.CodeSource;
 import java.util.Map;
 
@@ -14,6 +17,7 @@ import com.github.axet.play.vlc.libvlc_instance_t;
 import com.github.axet.play.vlc.libvlc_media_t;
 import com.sun.jna.NativeLibrary;
 import com.sun.jna.Platform;
+import com.sun.jna.platform.win32.Kernel32;
 
 public class VLC {
     static String vlc_args[] = { "-I", "dumy", "--ignore-config", "--no-xlib", "--no-video-title-show" };
@@ -58,10 +62,18 @@ public class VLC {
                         CodeSource src = cls.getProtectionDomain().getCodeSource();
                         if (src == null)
                             continue;
-                        path = src.getLocation().getFile();
+                        path = src.getLocation().getPath();
                     } catch (ClassNotFoundException e) {
                         throw new RuntimeException(e);
                     }
+
+                    // windows return path with %20
+                    try {
+                        path = URLDecoder.decode(path, "UTF-8");
+                    } catch (UnsupportedEncodingException e) {
+                        throw new RuntimeException(e);
+                    }
+
                     File natives = new File(path);
                     natives = new File(natives.getParent());
                     natives = FileUtils.getFile(natives, "natives");
@@ -96,7 +108,7 @@ public class VLC {
     }
 
     public static boolean checkPath(File path) {
-        String[] any = new String[] { "libvlc.so", "libvlc.dylib" };
+        String[] any = new String[] { "libvlc.so", "libvlc.dylib", "libvlc.dll" };
         for (String l : any) {
             File vlc = FileUtils.getFile(path, l);
             if (vlc.exists())
@@ -107,15 +119,18 @@ public class VLC {
     }
 
     public static void setPath(File path) {
+        if (Platform.isLinux() || Platform.isMac()) {
+            LibC.INSTANCE.setenv("VLC_PLUGIN_PATH", path.toString(), 1);
+        }
+        if (Platform.isWindows()) {
+            Kernel32.INSTANCE.SetEnvironmentVariable("VLC_PLUGIN_PATH", path.toString());
+        }
+
         NativeLibrary.addSearchPath("vlccore", path.toString());
         NativeLibrary.addSearchPath("vlc", path.toString());
 
         NativeLibrary.getInstance("vlccore");
         NativeLibrary.getInstance("vlc");
-
-        if (Platform.isLinux() || Platform.isMac()) {
-            LibC.INSTANCE.setenv("VLC_PLUGIN_PATH", path.toString(), 1);
-        }
     }
 
     public libvlc_instance_t getInstance() {

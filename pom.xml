@@ -67,6 +67,11 @@
       <artifactId>jna</artifactId>
       <version>3.5.1</version>
     </dependency>
+    <dependency>
+      <groupId>net.java.dev.jna</groupId>
+      <artifactId>platform</artifactId>
+      <version>3.5.1</version>
+    </dependency>
   </dependencies>
 
 
@@ -75,12 +80,18 @@
       <id>win-32</id>
       <activation>
         <os>
-          <name>Windows XP</name>
           <family>Windows</family>
           <arch>x86</arch>
         </os>
       </activation>
-      <dependencies></dependencies>
+      <dependencies>
+        <dependency>
+          <groupId>com.github.axet.play</groupId>
+          <artifactId>libvlc</artifactId>
+          <version>2.0.5-1</version>
+          <classifier>natives-windows-x86</classifier>
+        </dependency>
+      </dependencies>
     </profile>
     <profile>
       <id>linux-64</id>
