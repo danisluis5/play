@@ -4,7 +4,7 @@
   <groupId>com.github.axet</groupId>
   <artifactId>play</artifactId>
   <packaging>jar</packaging>
-  <version>0.0.1</version>
+  <version>0.0.2</version>
   <name>play</name>
   <description>play</description>
   <url>https://github.com/axet/play</url>
@@ -92,14 +92,48 @@
       </activation>
       <dependencies>
         <dependency>
-          <groupId>com.github.axet</groupId>
-          <artifactId>play</artifactId>
-          <version>0.0.1</version>
+          <groupId>com.github.axet.play</groupId>
+          <artifactId>libvlc</artifactId>
+          <version>2.0.5-1</version>
           <classifier>natives-linux-x86_64</classifier>
         </dependency>
       </dependencies>
     </profile>
-  </profiles>
+    <profile>
+      <id>linux-32</id>
+      <activation>
+        <os>
+          <family>Linux</family>
+          <arch>i386</arch>
+        </os>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>com.github.axet.play</groupId>
+          <artifactId>libvlc</artifactId>
+          <version>2.0.5-1</version>
+          <classifier>natives-linux-x86</classifier>
+        </dependency>
+      </dependencies>
+    </profile>
+    <profile>
+      <id>mac-64</id>
+      <activation>
+        <os>
+          <name>mac os x</name>
+          <arch>x86_64</arch>
+        </os>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>com.github.axet.play</groupId>
+          <artifactId>libvlc</artifactId>
+          <version>2.0.5-1</version>
+          <classifier>natives-mac-x86_64</classifier>
+        </dependency>
+      </dependencies>
+    </profile>
+    </profiles>
 
 
   <build>

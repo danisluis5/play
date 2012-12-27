@@ -2,3 +2,4 @@ build
 master
 *.jar
 natives
+*.asc

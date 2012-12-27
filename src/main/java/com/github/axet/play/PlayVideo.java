@@ -7,6 +7,7 @@ import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 
+import com.github.axet.play.PlaySound.Listener;
 import com.github.axet.play.vlc.LibVlc;
 import com.github.axet.play.vlc.Memfile;
 import com.github.axet.play.vlc.MemoryFile;
@@ -59,6 +60,11 @@ public class PlayVideo extends Canvas {
         @Override
         public void libvlc_callback(IntByReference p_event, Pointer p_user_data) {
             switch (p_event.getValue()) {
+            case libvlc_event_type_t.libvlc_MediaPlayerPlaying:
+                for (Listener l : listeners) {
+                    l.start();
+                }
+                break;
             case libvlc_event_type_t.libvlc_MediaPlayerEndReached:
                 for (Listener l : listeners) {
                     l.position(1.0f);
@@ -99,6 +105,7 @@ public class PlayVideo extends Canvas {
         LibVlc.INSTANCE.libvlc_media_player_set_media(m.getInstance(), fl);
 
         libvlc_event_manager_t ev = LibVlc.INSTANCE.libvlc_media_player_event_manager(m.getInstance());
+        LibVlc.INSTANCE.libvlc_event_attach(ev, libvlc_event_type_t.libvlc_MediaPlayerPlaying, evets, null);
         LibVlc.INSTANCE.libvlc_event_attach(ev, libvlc_event_type_t.libvlc_MediaPlayerEndReached, evets, null);
         LibVlc.INSTANCE.libvlc_event_attach(ev, libvlc_event_type_t.libvlc_MediaPlayerPositionChanged, evets, null);
 

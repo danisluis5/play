@@ -21,18 +21,3 @@ mkdir -p ../../vlc/contrib/linux
 (mkdir -p natives) || exit 1
 (find build/vlc_install_dir/ -name *plugin*.so -exec cp {} ${PWD}/natives/ \;) || exit 1
 (cp -r build/vlc_install_dir/lib/libvlc* natives/) || exit 1
-
-# pack:
-rm -f play-mac.jar
-
-(cd natives && jar cf ../play-mac.jar *)
-	
-mvn install:install-file -Dfile=play-mac.jar \
-  -DgroupId=com.github.axet \
-  -DartifactId=play \
-  -Dversion=0.0.1 \
-  -Dpackaging=jar \
-  -Dclassifier=natives-linux-x86_64 \
-  -DgeneratePom=true \
-  -DcreateChecksum=true
-

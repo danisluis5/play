@@ -2,6 +2,8 @@ package com.github.axet.vlc;
 
 import java.awt.BorderLayout;
 import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import javax.swing.JFrame;
 import javax.swing.JProgressBar;
@@ -9,11 +11,11 @@ import javax.swing.SwingUtilities;
 
 import com.github.axet.play.PlaySound;
 
-public class TestSoundFile extends JFrame {
+public class TestSoundURL extends JFrame {
 
     JProgressBar progressBar;
 
-    public TestSoundFile() {
+    public TestSoundURL() {
 
         progressBar = new JProgressBar();
         progressBar.setMinimum(0);
@@ -30,7 +32,7 @@ public class TestSoundFile extends JFrame {
     PlaySound p = new PlaySound();
     PlaySound p2 = new PlaySound();
 
-    public void run(File f) {
+    public void run(URL f) {
         p.addListener(new PlaySound.Listener() {
             @Override
             public void position(final float pos) {
@@ -79,8 +81,14 @@ public class TestSoundFile extends JFrame {
      * @param args
      */
     public static void main(String[] args) {
-        File f = new File(args[0]);
-        TestSoundFile t = new TestSoundFile();
+        URL f;
+        try {
+            f = new URL(args[0]);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            return;
+        }
+        TestSoundURL t = new TestSoundURL();
         t.run(f);
     }
 }
