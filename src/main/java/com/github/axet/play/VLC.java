@@ -25,7 +25,9 @@ public class VLC {
     boolean close = false;
 
     static {
-        // 1) under debugger, eclipse + maven-nativedependencies-plugin
+        // use eclipse + maven-nativedependencies-plugin
+        
+        // 1) under debugger, /Users/axet/source/mircle/play/target/classes/
         String path = VLC.class.getProtectionDomain().getCodeSource().getLocation().getFile();
         File natives = new File(path);
         natives = new File(natives.getParent());
@@ -33,7 +35,7 @@ public class VLC {
         if (natives.exists()) {
             VLC.setPath(natives);
         }
-        // 2) mac osx wihtout debugger path - points to the jar inside the application
+        // 2) mac osx wihtout debugger path - /Users/axet/source/mircle/mircle/macosx/Mircle.app/Contents/Resources/Java/mircle.jar
         // case above 1) works prefectly
     }
 
