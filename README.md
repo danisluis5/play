@@ -28,6 +28,14 @@ users, unless you have paid subscription. Also I'm sure VLCJ will never be relea
   - Mac OS X (32) - ?
   - Mac OS X (64) (failed to play video)
 
+## Central Maven Repo
+
+    <dependency>
+      <groupId>com.github.axet</groupId>
+      <artifactId>play</artifactId>
+      <version>0.0.5</version>
+    </dependency>
+    
 # Licence
 
 LGPL 3.0
