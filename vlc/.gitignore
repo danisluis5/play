@@ -3,3 +3,4 @@ master
 *.jar
 natives
 *.asc
+*.deb

@@ -2,7 +2,6 @@ package com.github.axet.play.vlc;
 
 import com.sun.jna.Library;
 import com.sun.jna.Native;
-import com.sun.jna.NativeLibrary;
 import com.sun.jna.Pointer;
 
 public interface LibVlc extends Library {
@@ -46,7 +45,7 @@ public interface LibVlc extends Library {
 
     void libvlc_media_player_set_media(libvlc_media_player_t p_mi, libvlc_media_t p_md);
 
-    void libvlc_media_player_set_hwnd(libvlc_media_player_t p_mi, Pointer drawable);
+    void libvlc_media_player_set_hwnd(libvlc_media_player_t p_mi, long drawable);
 
     void libvlc_media_player_set_nsobject(libvlc_media_player_t p_mi, long drawable);
 

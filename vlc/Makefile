@@ -10,6 +10,8 @@ all: pack
 clean:
 	(cd ../../vlc && git checkout .)
 	(cd ../../vlc && git clean -fdx)
+	rm -rf ../../vlc/configure
+	rm -rf build
 
 master-setup:
 	(cd ../../vlc/; git remote add vlc git://git.videolan.org/vlc.git)

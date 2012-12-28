@@ -114,7 +114,10 @@ public class PlayVideo extends Canvas {
 
         if (Platform.isLinux())
             LibVlc.INSTANCE.libvlc_media_player_set_xwindow(m.getInstance(), Native.getComponentID(this));
-    }
+
+        if (Platform.isWindows())
+            LibVlc.INSTANCE.libvlc_media_player_set_hwnd(m.getInstance(), Native.getComponentID(this));
+}
 
     public void open(final File f) {
         mem = new MemoryFile(f);
