@@ -22,8 +22,10 @@ users, unless you have paid subscription. Also I'm sure VLCJ will never be relea
 
   - Windows XP (32)
   - Windows 8 (32)
+  - Windows 8 (64) - ?
   - Linux (32)
   - Linux (64)
+  - Mac OS X (32) - ?
   - Mac OS X (64) (failed to play video)
 
 # Licence
