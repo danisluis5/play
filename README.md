@@ -13,15 +13,20 @@ Why another Java Video Library?
 users, unless you have paid subscription. Also I'm sure VLCJ will never be released under LGPL licence.
 
 # Features
-  - building vlc library scripts
-  
-  - native maven support
-
-  - packing vlc librarys into jar and installing it into local maven repo
-
-  - support for all three platforms.
-  
+  - native maven support (take it from central repo!)
+  - native librarys in place (no longer need to search for vlc.dll or libvlc.so!)
+  - support for all platforms (win, linux, mac)
   - native stream support (InputStream to the VLC!)
+
+# This library just works!
+
+  - Windows XP (32)
+  - Windows 8 (32)
+  - Windows 8 (64) - ?
+  - Linux (32)
+  - Linux (64)
+  - Mac OS X (32) - ?
+  - Mac OS X (64) (failed to play video)
 
 # Licence
 
