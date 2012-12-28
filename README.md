@@ -23,6 +23,14 @@ users, unless you have paid subscription. Also I'm sure VLCJ will never be relea
   
   - native stream support (InputStream to the VLC!)
 
+# This library just works!
+
+  - Windows XP (32)
+  - Windows 8 (32)
+  - Linux (32)
+  - Linux (64)
+  - Mac OS X (64) (failed to play video)
+
 # Licence
 
 LGPL 3.0
