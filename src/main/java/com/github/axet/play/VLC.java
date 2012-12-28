@@ -1,13 +1,10 @@
 package com.github.axet.play;
 
-import java.awt.image.Kernel;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.security.CodeSource;
 import java.util.Map;
-
-import javax.swing.JOptionPane;
 
 import org.apache.commons.io.FileUtils;
 

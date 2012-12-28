@@ -1,9 +1,9 @@
 package com.github.axet.play.vlc;
 
+import com.sun.jna.Callback;
 import com.sun.jna.ptr.LongByReference;
-import com.sun.jna.win32.StdCallLibrary.StdCallCallback;
 
-public interface MemfileSize extends StdCallCallback {
+public interface MemfileSize extends Callback {
     /**
      * 
      * @param vlc
