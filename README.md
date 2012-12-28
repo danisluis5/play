@@ -20,13 +20,12 @@ users, unless you have paid subscription. Also I'm sure VLCJ will never be relea
 
 # This library just works!
 
-  - Windows XP (32)
+  - Windows XP
   - Windows 8 (32)
   - Windows 8 (64) - ?
   - Linux (32)
   - Linux (64)
-  - Mac OS X (32) - ?
-  - Mac OS X (64) (failed to play video)
+  - Mac OS X (failed to play video)
 
 ## Central Maven Repo
 
