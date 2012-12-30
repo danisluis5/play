@@ -6,6 +6,7 @@ import com.github.axet.play.vlc.LibC;
 import com.github.axet.play.vlc.LibVlc;
 import com.github.axet.play.vlc.libvlc_instance_t;
 import com.github.axet.play.vlc.libvlc_media_t;
+import com.sun.jna.NativeLibrary;
 import com.sun.jna.Platform;
 import com.sun.jna.platform.win32.Kernel32;
 
@@ -34,9 +35,9 @@ public class VLC {
         // 3) pack with maven under debugger
         // /Users/axet/.m2/repository/com/github/axet/play/0.0.3/play-0.0.3.jar
 
-        MavenNatives.mavenNatives("vlccore");
+        MavenNatives.mavenNatives(new String[] { "vlccore", "vlc" });
 
-        File path = MavenNatives.mavenNatives("vlc");
+        File path = new File(NativeLibrary.getInstance("vlc").getFile().getParent());
 
         setPluginPath(path);
     }
