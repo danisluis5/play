@@ -1,18 +1,11 @@
 package com.github.axet.play;
 
 import java.io.File;
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.security.CodeSource;
-import java.util.Map;
-
-import org.apache.commons.io.FileUtils;
 
 import com.github.axet.play.vlc.LibC;
 import com.github.axet.play.vlc.LibVlc;
 import com.github.axet.play.vlc.libvlc_instance_t;
 import com.github.axet.play.vlc.libvlc_media_t;
-import com.sun.jna.NativeLibrary;
 import com.sun.jna.Platform;
 import com.sun.jna.platform.win32.Kernel32;
 
@@ -41,52 +34,20 @@ public class VLC {
         // 3) pack with maven under debugger
         // /Users/axet/.m2/repository/com/github/axet/play/0.0.3/play-0.0.3.jar
 
-        File lib = null;
+        MavenNatives.mavenNatives("vlccore");
 
-        {
-            Map<Thread, StackTraceElement[]> map = Thread.getAllStackTraces();
-            for (Thread thread : map.keySet()) {
-                StackTraceElement[] stack = thread.getStackTrace();
-                if (stack.length == 0)
-                    continue;
+        File path = MavenNatives.mavenNatives("vlc");
 
-                for (StackTraceElement main : stack) {
-                    String mainClass = main.getClassName();
+        setPluginPath(path);
+    }
 
-                    String path;
-                    try {
-                        Class<?> cls = Class.forName(mainClass);
-                        CodeSource src = cls.getProtectionDomain().getCodeSource();
-                        if (src == null)
-                            continue;
-                        path = src.getLocation().getPath();
-                    } catch (ClassNotFoundException e) {
-                        throw new RuntimeException(e);
-                    }
-
-                    // windows return path with %20
-                    try {
-                        path = URLDecoder.decode(path, "UTF-8");
-                    } catch (UnsupportedEncodingException e) {
-                        throw new RuntimeException(e);
-                    }
-
-                    File natives = new File(path);
-                    natives = new File(natives.getParent());
-                    natives = FileUtils.getFile(natives, "natives");
-                    if (VLC.checkPath(natives)) {
-                        lib = natives;
-                        break;
-                    }
-                }
-            }
+    public static void setPluginPath(File path) {
+        if (Platform.isLinux() || Platform.isMac()) {
+            LibC.INSTANCE.setenv("VLC_PLUGIN_PATH", path.toString(), 1);
         }
-
-        if (lib == null)
-            throw new RuntimeException("VLC natives not found" + "\n"
-                    + "you have to place natives next to the /classes folder or /main.jar file in the /natives folder");
-
-        VLC.setPath(lib);
+        if (Platform.isWindows()) {
+            Kernel32.INSTANCE.SetEnvironmentVariable("VLC_PLUGIN_PATH", path.toString());
+        }
     }
 
     public VLC() {
@@ -102,32 +63,6 @@ public class VLC {
 
             count++;
         }
-    }
-
-    public static boolean checkPath(File path) {
-        String[] any = new String[] { "libvlc.so", "libvlc.dylib", "libvlc.dll" };
-        for (String l : any) {
-            File vlc = FileUtils.getFile(path, l);
-            if (vlc.exists())
-                return true;
-        }
-
-        return false;
-    }
-
-    public static void setPath(File path) {
-        if (Platform.isLinux() || Platform.isMac()) {
-            LibC.INSTANCE.setenv("VLC_PLUGIN_PATH", path.toString(), 1);
-        }
-        if (Platform.isWindows()) {
-            Kernel32.INSTANCE.SetEnvironmentVariable("VLC_PLUGIN_PATH", path.toString());
-        }
-
-        NativeLibrary.addSearchPath("vlccore", path.toString());
-        NativeLibrary.addSearchPath("vlc", path.toString());
-
-        NativeLibrary.getInstance("vlccore");
-        NativeLibrary.getInstance("vlc");
     }
 
     public libvlc_instance_t getInstance() {
