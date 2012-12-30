@@ -15,6 +15,13 @@ public class MavenNatives {
     /**
      * enumerate native names, keep librarys dependency order.
      * 
+     * to make this function works, your project should use
+     * maven-nativedependencies-plugin. when active, it will unpack all native
+     * librarys to the class path folder. this function will check all
+     * ./natives/ folders and look for specified librarys to load. remeber to
+     * enumerate all librarys, including dependecies, otherwise load library
+     * will fail.
+     * 
      * @param natives
      *            ex: ["vlccore", "vlc"]
      */
