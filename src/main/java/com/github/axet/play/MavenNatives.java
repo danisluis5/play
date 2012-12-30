@@ -103,8 +103,8 @@ public class MavenNatives {
     }
 
     public static boolean checkPath(String natives, File path) {
-        String[] any = new String[] { "lib" + natives + ".so", "lib" + natives + ".dylib", "lib" + natives + ".dll",
-                natives + ".dll" };
+        String[] any = new String[] { "lib" + natives + ".so", "lib" + natives + ".dylib", "lib" + natives + ".jnilib",
+                "lib" + natives + ".dll", natives + ".dll" };
 
         for (String l : any) {
             File vlc = FileUtils.getFile(path, l);

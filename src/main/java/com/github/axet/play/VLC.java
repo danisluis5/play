@@ -37,7 +37,7 @@ public class VLC {
 
         MavenNatives.mavenNatives(new String[] { "vlccore", "vlc" });
 
-        File path = new File(NativeLibrary.getInstance("vlc").getFile().getParent());
+        File path = NativeLibrary.getInstance("vlc").getFile().getParentFile();
 
         setPluginPath(path);
     }
