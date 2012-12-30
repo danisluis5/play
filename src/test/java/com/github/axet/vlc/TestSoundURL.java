@@ -1,7 +1,6 @@
 package com.github.axet.vlc;
 
 import java.awt.BorderLayout;
-import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 

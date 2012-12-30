@@ -8,8 +8,6 @@ import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
 
 import com.github.axet.play.PlayVideo;
-import com.github.axet.play.VLC;
-import com.sun.jna.NativeLibrary;
 
 public class TestVideoFile extends JFrame {
     private static final long serialVersionUID = -2449941177902198161L;

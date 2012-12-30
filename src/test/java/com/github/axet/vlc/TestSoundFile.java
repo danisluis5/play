@@ -10,11 +10,11 @@ import javax.swing.SwingUtilities;
 import com.github.axet.play.PlaySound;
 
 public class TestSoundFile extends JFrame {
+    private static final long serialVersionUID = 5939701787636931690L;
 
     JProgressBar progressBar;
 
     public TestSoundFile() {
-
         progressBar = new JProgressBar();
         progressBar.setMinimum(0);
         progressBar.setMaximum(100);
@@ -63,21 +63,8 @@ public class TestSoundFile extends JFrame {
         p.open(f);
         System.out.println("run play");
         p.play();
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-
-        // test multichannel
-
-        // p2.open(f);
-        // p2.play();
     }
 
-    /**
-     * @param args
-     */
     public static void main(String[] args) {
         File f = new File(args[0]);
         TestSoundFile t = new TestSoundFile();
