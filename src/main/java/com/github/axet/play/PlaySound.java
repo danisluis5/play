@@ -124,7 +124,6 @@ public class PlaySound {
     }
 
     public void open(InputStream is) {
-
         mem = new MemoryStream(is);
 
         create(mem.getMrl());

@@ -2,6 +2,7 @@ package com.github.axet.play.vlc;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.ByteBuffer;
 
 import com.sun.jna.Pointer;
 import com.sun.jna.ptr.LongByReference;
@@ -30,7 +31,7 @@ public class MemoryStream extends Memfile {
             @Override
             public int size(LongByReference size) {
                 size.setValue(-1);
-                return LibVlc.VLC_SUCCESS;
+                return LibVlc.VLC_EGENERIC;
             }
         };
 
