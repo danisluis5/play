@@ -9,8 +9,7 @@ Mac - QTMovie, Linux - gstreams).
 
 Why another Java Video Library?
 
-- VLCJ - windows library, never been tested on Mac and Linux platform. It is worth mentioning author do not care about support for library
-users, unless you have paid subscription. Also I'm sure VLCJ will never be released under LGPL licence.
+- VLCJ - windows library, never been tested on Mac and Linux platform. It is worth mentioning author do not care about community, unless you have paid subscription. Also I'm sure VLCJ will never be released under LGPL licence.
 
 # Features
   - native maven support (take it from central repo!)
