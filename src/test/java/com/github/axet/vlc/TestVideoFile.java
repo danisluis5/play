@@ -37,6 +37,8 @@ public class TestVideoFile extends JFrame {
 
             @Override
             public void stop() {
+                System.out.println("actual streaming stop");
+
                 SwingUtilities.invokeLater(new Runnable() {
                     @Override
                     public void run() {
@@ -48,6 +50,7 @@ public class TestVideoFile extends JFrame {
 
             @Override
             public void start() {
+                System.out.println("actual streaming start");
             }
         });
 
@@ -62,6 +65,7 @@ public class TestVideoFile extends JFrame {
 
     public void run(File f) {
         c.open(f);
+        System.out.println("run play");
         c.play();
     }
 
