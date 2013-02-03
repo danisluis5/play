@@ -43,6 +43,11 @@
 
   <dependencies>
     <dependency>
+      <groupId>com.github.axet</groupId>
+      <artifactId>mavennatives</artifactId>
+      <version>0.0.3</version>
+    </dependency>
+    <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
       <version>3.1</version>

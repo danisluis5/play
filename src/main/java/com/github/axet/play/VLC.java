@@ -2,6 +2,7 @@ package com.github.axet.play;
 
 import java.io.File;
 
+import com.github.axet.mnp.MavenNatives;
 import com.github.axet.play.vlc.LibC;
 import com.github.axet.play.vlc.LibVlc;
 import com.github.axet.play.vlc.libvlc_instance_t;
@@ -22,19 +23,6 @@ public class VLC {
     boolean close = false;
 
     static {
-        // use eclipse + maven-nativedependencies-plugin
-
-        // VLC.class.getProtectionDomain().getCodeSource().getLocation().getFile();
-
-        // 1) under debugger, /Users/axet/source/mircle/play/target/classes/
-        //
-        // 2) mac osx wihtout debugger path -
-        // /Users/axet/source/mircle/mircle/macosx/Mircle.app/Contents/Resources/Java/mircle.jar
-        // case above 1) works prefectly
-        //
-        // 3) pack with maven under debugger
-        // /Users/axet/.m2/repository/com/github/axet/play/0.0.3/play-0.0.3.jar
-
         MavenNatives.mavenNatives(new String[] { "vlccore", "vlc" });
 
         File path = NativeLibrary.getInstance("vlc").getFile().getParentFile();
