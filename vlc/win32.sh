@@ -48,7 +48,7 @@ rm -f ../../vlc/contrib/i586-mingw32msvc/include/dxva2api.h || exit 1
 
 (cd build && make)  || exit 1
 
-(if ! [ -e "build/_win32" ]; then cd build && make install; fi) || exit 1
+(if ! [ -e "build/vlc-2.0.5" ]; then cd build && make package-win-strip; fi) || exit 1
 
 # pack:
 rm -f libvlc-windows-x86.jar || exit 1
@@ -56,11 +56,8 @@ rm -f libvlc-windows-x86.jar || exit 1
 rm -rf natives || exit 1
 mkdir -p natives || exit 1
 
-cp build/_win32/bin/*.dll natives/ || exit 1
-cp -r build/_win32/lib/vlc/plugins natives/ || exit 1
-
-find natives -name *.la -exec rm {} \; || exit 1
-find natives -name *.dll.a -exec rm {} \; || exit 1
+cp build/vlc-2.0.5/*.dll natives/ || exit 1
+cp -r build/vlc-2.0.5/plugins natives/ || exit 1
 
 (cd natives && jar cf ../libvlc-windows-x86.jar *) || exit 1
 

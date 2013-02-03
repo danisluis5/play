@@ -8,8 +8,6 @@ import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
 
 import com.github.axet.play.PlayVideo;
-import com.github.axet.play.VLC;
-import com.sun.jna.NativeLibrary;
 
 public class TestVideoFile extends JFrame {
     private static final long serialVersionUID = -2449941177902198161L;
@@ -39,6 +37,8 @@ public class TestVideoFile extends JFrame {
 
             @Override
             public void stop() {
+                System.out.println("actual streaming stop");
+
                 SwingUtilities.invokeLater(new Runnable() {
                     @Override
                     public void run() {
@@ -50,6 +50,7 @@ public class TestVideoFile extends JFrame {
 
             @Override
             public void start() {
+                System.out.println("actual streaming start");
             }
         });
 
@@ -64,6 +65,7 @@ public class TestVideoFile extends JFrame {
 
     public void run(File f) {
         c.open(f);
+        System.out.println("run play");
         c.play();
     }
 

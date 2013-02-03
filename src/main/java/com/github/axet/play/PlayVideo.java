@@ -7,7 +7,6 @@ import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 
-import com.github.axet.play.PlaySound.Listener;
 import com.github.axet.play.vlc.LibVlc;
 import com.github.axet.play.vlc.Memfile;
 import com.github.axet.play.vlc.MemoryFile;
