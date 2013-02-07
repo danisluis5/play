@@ -23,7 +23,7 @@ Why another Java Video Library?
   - Windows (x64) - (under PROGRESS)
   - Linux (x32)
   - Linux (x64)
-  - Mac OS X (64) (under PROGRESS)
+  - Mac OS X (x64) (under PROGRESS)
 
 ## Example Sound Player
 
