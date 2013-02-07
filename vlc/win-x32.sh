@@ -2,7 +2,7 @@
 
 HOST=i586-mingw32msvc
 
-sudo apt-get -t experimental install -y binutils-mingw-w64-i686 gcc-mingw-w64 gcc-mingw-w64-base gcc-mingw-w64-i686 g++-mingw-w64 g++-mingw-w64-i686 mingw-w64 mingw-w64-dev mingw-w64-tools mingw-w64-i686-dev
+sudo apt-get -t experimental install -y binutils-mingw-w64-i686 gcc-mingw-w64-i686 g++-mingw-w64-i686 mingw-w64-tools mingw-w64-i686-dev
 
 . ./win.sh || exit 1
 
