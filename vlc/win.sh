@@ -1,15 +1,5 @@
 #!/bin/bash
 
-sudo apt-get install -y binutils-mingw-w64-x86-64 binutils-mingw-w64-i686
-
-for DEB in $DEBS; do
-  D=$(basename $DEB)
-  if ! [ -e $D ]; then
-    wget $DEB || exit 1
-    sudo dpkg -i $D || exit 1
-  fi
-done
-
 (if ! [ -e ../../vlc/contrib/win32 ]; then mkdir -p ../../vlc/contrib/win32 && cd ../../vlc/contrib/win32 && ../bootstrap --host=$HOST; make prebuilt; fi) || exit 1
 
 rm -f ../../vlc/contrib/$HOST/include/strmif.h || exit 1

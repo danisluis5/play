@@ -2,18 +2,7 @@
 
 HOST=x86_64-w64-mingw32
 
-DEBS="http://people.videolan.org/~funman/win/gcc-mingw-w64-base_4.6.3-14+9_amd64.deb \
-      http://people.videolan.org/~funman/win/mingw-w64-x86-64-dev_3.0~svn5496-1_all.deb \
-      http://people.videolan.org/~funman/win/gcc-mingw-w64-x86-64_4.6.3-14+9_amd64.deb \
-      http://people.videolan.org/~funman/win/g++-mingw-w64-x86-64_4.6.3-14+9_amd64.deb \
-      http://people.videolan.org/~funman/win/mingw-w64-i686-dev_3.0~svn5496-1_all.deb \
-      http://people.videolan.org/~funman/win/gcc-mingw-w64-i686_4.6.3-14+9_amd64.deb \
-      http://people.videolan.org/~funman/win/g++-mingw-w64-i686_4.6.3-14+9_amd64.deb \
-      http://people.videolan.org/~funman/win/g++-mingw-w64_4.6.3-14+9_all.deb \
-      http://people.videolan.org/~funman/win/gcc-mingw-w64_4.6.3-14+9_all.deb \
-      http://people.videolan.org/~funman/win/mingw-w64-dev_3.0~svn5496-1_all.deb \
-      http://people.videolan.org/~funman/win/mingw-w64_3.0~svn5496-1_all.deb \
-      http://people.videolan.org/~funman/win/mingw-w64-tools_3.0~svn5496-1_amd64.deb"
+sudo apt-get -t experimental install -y  binutils-mingw-w64-x86-64 gcc-mingw-w64 gcc-mingw-w64-base gcc-mingw-w64-x86-64 g++-mingw-w64 g++-mingw-w64-x86-64 mingw-w64 mingw-w64-dev mingw-w64-tools mingw-w64-x86-64-dev
 
 . ./win.sh || exit 1
 
