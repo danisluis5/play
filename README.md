@@ -23,8 +23,6 @@ Why another Java Video Library?
   - Windows (64) - (under PROGRESS)
   - Linux (32)
   - Linux (64)
-  - Mac OS X (PPC32) (NOT SUPPORTED)
-  - Mac OS X (PPC64) (NOT SUPPORTED)
   - Mac OS X (32) (NOT SUPPORTED)
   - Mac OS X (64) (failed to play video, investigating)
 
