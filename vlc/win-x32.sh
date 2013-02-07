@@ -1,6 +1,6 @@
 #!/bin/bash
 
-HOST=i586-mingw32msvc
+HOST=i686-w64-mingw32
 
 sudo apt-get -t experimental install -y binutils-mingw-w64-i686 gcc-mingw-w64-i686 g++-mingw-w64-i686 mingw-w64-tools mingw-w64-i686-dev
 
