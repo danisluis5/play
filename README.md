@@ -19,11 +19,11 @@ Why another Java Video Library?
 
 # This library just works!
 
-  - Windows (32)
-  - Windows (64) - (under PROGRESS)
-  - Linux (32)
-  - Linux (64)
-  - Mac OS X (64) (failed to play video, investigating)
+  - Windows (x32)
+  - Windows (x64) - (under PROGRESS)
+  - Linux (x32)
+  - Linux (x64)
+  - Mac OS X (64) (under PROGRESS)
 
 ## Example Sound Player
 
