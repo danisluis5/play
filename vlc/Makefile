@@ -12,6 +12,7 @@ clean:
 	(cd ../../vlc && git clean -fdx)
 	rm -rf ../../vlc/configure
 	rm -rf build
+	rm -rf natives
 
 master-setup:
 	(cd ../../vlc/; git remote add vlc git://git.videolan.org/vlc.git)
