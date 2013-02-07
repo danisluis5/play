@@ -2,7 +2,7 @@
 
 HOST=x86_64-w64-mingw32
 
-sudo apt-get -t experimental install -y  binutils-mingw-w64-x86-64 gcc-mingw-w64 gcc-mingw-w64-base gcc-mingw-w64-x86-64 g++-mingw-w64 g++-mingw-w64-x86-64 mingw-w64 mingw-w64-dev mingw-w64-tools mingw-w64-x86-64-dev
+sudo apt-get -t experimental install -y  binutils-mingw-w64-x86-64 gcc-mingw-w64-x86-64 g++-mingw-w64-x86-64 mingw-w64-tools mingw-w64-x86-64-dev
 
 . ./win.sh || exit 1
 
