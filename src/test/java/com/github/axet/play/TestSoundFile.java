@@ -66,14 +66,9 @@ public class TestSoundFile {
         p.play();
     }
 
-    @Test
-    public void play() {
-        String name = "test.mp3";
-        run(new File(name));
-    }
-
     public static void main(String[] args) {
         TestSoundFile t = new TestSoundFile();
-        t.run(new File(args[0]));
+        File f = new File(args[0]);
+        t.run(f);
     }
 }

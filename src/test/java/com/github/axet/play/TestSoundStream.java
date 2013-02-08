@@ -51,22 +51,6 @@ public class TestSoundStream {
         p.play();
     }
 
-    @Test
-    public void play() {
-        String name = "test.mp3";
-
-        InputStream is = null;
-
-        File f = new File(name);
-        try {
-            is = new FileInputStream(f);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        open(is);
-    }
-
     public static void main(String[] args) {
         File f = new File(args[0]);
         InputStream is = null;
