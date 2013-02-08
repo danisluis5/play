@@ -67,7 +67,7 @@ public class TestSoundFile {
     }
 
     @Test
-    public void test() {
+    public void play() {
         String name = "test.mp3";
         run(new File(name));
     }

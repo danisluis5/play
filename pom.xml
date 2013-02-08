@@ -85,8 +85,9 @@
   </dependencies>
 
   <profiles>
+
     <profile>
-      <id>win-32</id>
+      <id>win-x32</id>
       <activation>
         <os>
           <family>Windows</family>
@@ -97,30 +98,32 @@
         <dependency>
           <groupId>com.github.axet.play</groupId>
           <artifactId>libvlc</artifactId>
-          <version>2.0.5-1</version>
+          <version>2.0.5-2</version>
           <classifier>natives-windows-x86</classifier>
         </dependency>
       </dependencies>
     </profile>
+
     <profile>
-      <id>linux-64</id>
+      <id>win-x64</id>
       <activation>
         <os>
-          <family>Linux</family>
-          <arch>amd64</arch>
+          <family>Windows</family>
+          <arch>x86_64</arch>
         </os>
       </activation>
       <dependencies>
         <dependency>
           <groupId>com.github.axet.play</groupId>
           <artifactId>libvlc</artifactId>
-          <version>2.0.5-1</version>
-          <classifier>natives-linux-x86_64</classifier>
+          <version>2.0.5-2</version>
+          <classifier>natives-windows-x86_64</classifier>
         </dependency>
       </dependencies>
     </profile>
+
     <profile>
-      <id>linux-32</id>
+      <id>linux-x32</id>
       <activation>
         <os>
           <family>Linux</family>
@@ -131,13 +134,50 @@
         <dependency>
           <groupId>com.github.axet.play</groupId>
           <artifactId>libvlc</artifactId>
-          <version>2.0.5-1</version>
+          <version>2.0.5-2</version>
           <classifier>natives-linux-x86</classifier>
         </dependency>
       </dependencies>
     </profile>
+
     <profile>
-      <id>mac-64</id>
+      <id>linux-x64</id>
+      <activation>
+        <os>
+          <family>Linux</family>
+          <arch>amd64</arch>
+        </os>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>com.github.axet.play</groupId>
+          <artifactId>libvlc</artifactId>
+          <version>2.0.5-2</version>
+          <classifier>natives-linux-x86_64</classifier>
+        </dependency>
+      </dependencies>
+    </profile>
+
+    <profile>
+      <id>mac-x32</id>
+      <activation>
+        <os>
+          <name>mac os x</name>
+          <arch>x86</arch>
+        </os>
+      </activation>
+      <dependencies>
+        <dependency>
+          <groupId>com.github.axet.play</groupId>
+          <artifactId>libvlc</artifactId>
+          <version>2.0.5-2</version>
+          <classifier>natives-mac-x86</classifier>
+        </dependency>
+      </dependencies>
+    </profile>
+
+    <profile>
+      <id>mac-x64</id>
       <activation>
         <os>
           <name>mac os x</name>
@@ -148,11 +188,12 @@
         <dependency>
           <groupId>com.github.axet.play</groupId>
           <artifactId>libvlc</artifactId>
-          <version>2.0.5-1</version>
+          <version>2.0.5-2</version>
           <classifier>natives-mac-x86_64</classifier>
         </dependency>
       </dependencies>
     </profile>
+
   </profiles>
 
   <build>
