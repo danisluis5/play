@@ -1,10 +1,7 @@
-package com.github.axet.vlc;
+package com.github.axet.play;
 
 import java.awt.BorderLayout;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 
 import javax.swing.JFrame;
 import javax.swing.JProgressBar;
@@ -12,28 +9,38 @@ import javax.swing.SwingUtilities;
 
 import com.github.axet.play.PlayVideo;
 
-public class TestVideoSteam extends JFrame {
-    private static final long serialVersionUID = -2449941177902198161L;
-
+public class TestVideoFile {
     PlayVideo c;
+    JFrame frame = new JFrame("PLAYER");
 
-    public TestVideoSteam() {
+    JProgressBar progressBar;
+
+    public TestVideoFile() {
+        progressBar = new JProgressBar();
+        frame.getContentPane().add(progressBar, BorderLayout.SOUTH);
+
         c = new PlayVideo();
 
         c.addListener(new PlayVideo.Listener() {
             @Override
             public void position(final float pos) {
-                System.out.println("no position event for inputstream possible");
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressBar.setValue((int) (100.0 * pos));
+                    }
+                });
             }
 
             @Override
             public void stop() {
                 System.out.println("actual streaming stop");
+
                 SwingUtilities.invokeLater(new Runnable() {
                     @Override
                     public void run() {
                         c.close();
-                        dispose();
+                        frame.dispose();
                     }
                 });
             }
@@ -44,33 +51,29 @@ public class TestVideoSteam extends JFrame {
             }
         });
 
-        getContentPane().add(c, BorderLayout.CENTER);
+        frame.getContentPane().add(c, BorderLayout.CENTER);
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        setSize(500, 500);
-        setLocationRelativeTo(null);
-        setVisible(true);
+        frame.setSize(500, 500);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
 
-    public void open(InputStream is) {
-        c.open(is);
+    public void run(File f) {
+        c.open(f);
+        System.out.println("run play");
         c.play();
     }
 
+    /**
+     * @param args
+     */
     public static void main(String[] args) {
         String name = args.length == 0 ? "test.mp3" : args[0];
 
         File f = new File(name);
-
-        InputStream is = null;
-        try {
-            is = new FileInputStream(f);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        TestVideoSteam t = new TestVideoSteam();
-        t.open(is);
+        TestVideoFile t = new TestVideoFile();
+        t.run(f);
     }
 }

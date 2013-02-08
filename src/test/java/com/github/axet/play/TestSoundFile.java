@@ -1,4 +1,4 @@
-package com.github.axet.vlc;
+package com.github.axet.play;
 
 import java.awt.BorderLayout;
 import java.io.File;
@@ -7,24 +7,32 @@ import javax.swing.JFrame;
 import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
 
-import com.github.axet.play.PlayVideo;
+import org.junit.Test;
 
-public class TestVideoFile extends JFrame {
-    private static final long serialVersionUID = -2449941177902198161L;
+import com.github.axet.play.PlaySound;
 
-    PlayVideo c;
-
+public class TestSoundFile {
     JProgressBar progressBar;
+    JFrame frame = new JFrame("PLAYER");
 
-    public TestVideoFile() {
-        super("PLAYER");
-
+    public TestSoundFile() {
         progressBar = new JProgressBar();
-        getContentPane().add(progressBar, BorderLayout.SOUTH);
+        progressBar.setMinimum(0);
+        progressBar.setMaximum(100);
 
-        c = new PlayVideo();
+        frame.getContentPane().add(progressBar, BorderLayout.CENTER);
 
-        c.addListener(new PlayVideo.Listener() {
+        frame.setSize(300, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
+    }
+
+    PlaySound p = new PlaySound();
+    PlaySound p2 = new PlaySound();
+
+    public void run(File f) {
+        p.addListener(new PlaySound.Listener() {
             @Override
             public void position(final float pos) {
                 SwingUtilities.invokeLater(new Runnable() {
@@ -38,12 +46,11 @@ public class TestVideoFile extends JFrame {
             @Override
             public void stop() {
                 System.out.println("actual streaming stop");
-
                 SwingUtilities.invokeLater(new Runnable() {
                     @Override
                     public void run() {
-                        c.close();
-                        dispose();
+                        p.close();
+                        frame.dispose();
                     }
                 });
             }
@@ -54,29 +61,19 @@ public class TestVideoFile extends JFrame {
             }
         });
 
-        getContentPane().add(c, BorderLayout.CENTER);
-
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        setSize(500, 500);
-        setLocationRelativeTo(null);
-        setVisible(true);
-    }
-
-    public void run(File f) {
-        c.open(f);
+        p.open(f);
         System.out.println("run play");
-        c.play();
+        p.play();
     }
 
-    /**
-     * @param args
-     */
-    public static void main(String[] args) {
-        String name = args.length == 0 ? "test.mp3" : args[0];
+    @Test
+    public void test() {
+        String name = "test.mp3";
+        run(new File(name));
+    }
 
-        File f = new File(name);
-        TestVideoFile t = new TestVideoFile();
-        t.run(f);
+    public static void main(String[] args) {
+        TestSoundFile t = new TestSoundFile();
+        t.run(new File(args[0]));
     }
 }

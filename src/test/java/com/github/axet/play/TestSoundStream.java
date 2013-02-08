@@ -1,4 +1,4 @@
-package com.github.axet.vlc;
+package com.github.axet.play;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,16 +10,15 @@ import javax.swing.SwingUtilities;
 
 import com.github.axet.play.PlaySound;
 
-public class TestSoundStream extends JFrame {
-    private static final long serialVersionUID = 27911591221853186L;
-
+public class TestSoundStream {
     PlaySound p = new PlaySound();
+    JFrame frame = new JFrame("PLAYER");
 
     public TestSoundStream() {
-        setSize(300, 300);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        setVisible(true);
+        frame.setSize(300, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
 
         p.addListener(new PlaySound.Listener() {
             @Override
@@ -33,7 +32,7 @@ public class TestSoundStream extends JFrame {
                     @Override
                     public void run() {
                         p.close();
-                        dispose();
+                        frame.dispose();
                     }
                 });
             }
@@ -52,7 +51,7 @@ public class TestSoundStream extends JFrame {
 
     public static void main(String[] args) {
         String name = args.length == 0 ? "test.mp3" : args[0];
-       
+
         File f = new File(name);
         InputStream is = null;
 
