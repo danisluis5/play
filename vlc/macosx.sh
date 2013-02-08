@@ -10,14 +10,3 @@ mkdir -p build
 (mkdir -p natives) || exit 1
 (find build/vlc_install_dir/ -name *plugin.dylib -exec cp {} ${PWD}/natives/ \;) || exit 1
 (cp build/vlc_install_dir/lib/*.dylib natives/) || exit 1
-
-# pack:
-rm -f libvlc-mac-x86_64.jar
-
-(cd natives && jar cf ../libvlc-mac-x86_64.jar *)
-
-mvn install:install-file -Dfile=libvlc-mac-x86_64.jar \
-  -DgroupId=com.github.axet.play \
-  -DpomFile=libvlc.pom \
-  -Dpackaging=jar \
-  -Dclassifier=natives-mac-x86_64
