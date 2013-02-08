@@ -11,25 +11,23 @@ import org.junit.Test;
 
 import com.github.axet.play.PlaySound;
 
-public class TestSoundFile {
+public class TestSoundFile extends JFrame {
     JProgressBar progressBar;
-    JFrame frame = new JFrame("PLAYER");
 
     public TestSoundFile() {
         progressBar = new JProgressBar();
         progressBar.setMinimum(0);
         progressBar.setMaximum(100);
 
-        frame.getContentPane().add(progressBar, BorderLayout.CENTER);
+        getContentPane().add(progressBar, BorderLayout.CENTER);
 
-        frame.setSize(300, 300);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+        setSize(300, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
     PlaySound p = new PlaySound();
-    PlaySound p2 = new PlaySound();
 
     public void run(File f) {
         p.addListener(new PlaySound.Listener() {
@@ -50,7 +48,7 @@ public class TestSoundFile {
                     @Override
                     public void run() {
                         p.close();
-                        frame.dispose();
+                        dispose();
                     }
                 });
             }

@@ -9,15 +9,13 @@ import javax.swing.SwingUtilities;
 
 import com.github.axet.play.PlayVideo;
 
-public class TestVideoFile {
+public class TestVideoFile extends JFrame{
     PlayVideo c;
-    JFrame frame = new JFrame("PLAYER");
-
     JProgressBar progressBar;
 
     public TestVideoFile() {
         progressBar = new JProgressBar();
-        frame.getContentPane().add(progressBar, BorderLayout.SOUTH);
+        getContentPane().add(progressBar, BorderLayout.SOUTH);
 
         c = new PlayVideo();
 
@@ -40,7 +38,7 @@ public class TestVideoFile {
                     @Override
                     public void run() {
                         c.close();
-                        frame.dispose();
+                        dispose();
                     }
                 });
             }
@@ -51,13 +49,13 @@ public class TestVideoFile {
             }
         });
 
-        frame.getContentPane().add(c, BorderLayout.CENTER);
+        getContentPane().add(c, BorderLayout.CENTER);
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        frame.setSize(500, 500);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+        setSize(500, 500);
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
     public void run(File f) {

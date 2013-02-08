@@ -12,9 +12,8 @@ import javax.swing.SwingUtilities;
 
 import com.github.axet.play.PlayVideo;
 
-public class TestVideoSteam {
+public class TestVideoSteam extends JFrame{
     PlayVideo c;
-    JFrame frame = new JFrame();
 
     public TestVideoSteam() {
         c = new PlayVideo();
@@ -32,7 +31,7 @@ public class TestVideoSteam {
                     @Override
                     public void run() {
                         c.close();
-                        frame.dispose();
+                        dispose();
                     }
                 });
             }
@@ -43,13 +42,13 @@ public class TestVideoSteam {
             }
         });
 
-        frame.getContentPane().add(c, BorderLayout.CENTER);
+        getContentPane().add(c, BorderLayout.CENTER);
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        frame.setSize(500, 500);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+        setSize(500, 500);
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
     public void open(InputStream is) {

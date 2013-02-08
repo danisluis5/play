@@ -12,15 +12,14 @@ import org.junit.Test;
 
 import com.github.axet.play.PlaySound;
 
-public class TestSoundStream {
+public class TestSoundStream extends JFrame{
     PlaySound p = new PlaySound();
-    JFrame frame = new JFrame("PLAYER");
 
     public TestSoundStream() {
-        frame.setSize(300, 300);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+        setSize(300, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
+        setVisible(true);
 
         p.addListener(new PlaySound.Listener() {
             @Override
@@ -34,7 +33,7 @@ public class TestSoundStream {
                     @Override
                     public void run() {
                         p.close();
-                        frame.dispose();
+                        dispose();
                     }
                 });
             }
