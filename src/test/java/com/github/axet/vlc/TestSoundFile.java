@@ -66,7 +66,9 @@ public class TestSoundFile extends JFrame {
     }
 
     public static void main(String[] args) {
-        File f = new File(args[0]);
+        String name = args.length == 0 ? "test.mp3" : args[0];
+
+        File f = new File(name);
         TestSoundFile t = new TestSoundFile();
         t.run(f);
     }

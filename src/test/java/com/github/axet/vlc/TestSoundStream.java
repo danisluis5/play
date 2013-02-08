@@ -51,9 +51,9 @@ public class TestSoundStream extends JFrame {
     }
 
     public static void main(String[] args) {
-        TestSoundStream t = new TestSoundStream();
-
-        File f = new File(args[0]);
+        String name = args.length == 0 ? "test.mp3" : args[0];
+       
+        File f = new File(name);
         InputStream is = null;
 
         try {
@@ -62,6 +62,7 @@ public class TestSoundStream extends JFrame {
             e.printStackTrace();
         }
 
+        TestSoundStream t = new TestSoundStream();
         t.open(is);
     }
 }
