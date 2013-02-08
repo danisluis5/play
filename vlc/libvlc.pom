@@ -6,7 +6,7 @@
   <version>2.0.5-2</version>
   <packaging>jar</packaging>
   <name>libvlc</name>
-  <description>libvlc - linux x64 natives</description>
+  <description>libvlc - natives</description>
   <url>https://github.com/axet/play</url>
   <licenses>
     <license>
