@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export HOST=x86_64-apple-darwin10
+
 ./macosx.sh || exit 1
 
 # pack:
