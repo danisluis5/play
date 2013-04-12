@@ -5,6 +5,9 @@ export VLC=vlc-2.0.6
 
 # install yasm and build manually:
 # make install PKGS=ffmpeg
+# add link to the
+# ln -s ../../vlc/contrib/x86_64-w64-mingw32/include/FLAC/stream_decoder.h ../../vlc/contrib/x86_64-w64-mingw32/include/stream_decoder.h 
+# ln -s ../../vlc/contrib/x86_64-w64-mingw32/include/FLAC/stream_encoder.h ../../vlc/contrib/x86_64-w64-mingw32/include/stream_encoder.h
 
 sudo apt-get -t experimental install -y  binutils-mingw-w64-x86-64 gcc-mingw-w64-x86-64 g++-mingw-w64-x86-64 mingw-w64-tools mingw-w64-x86-64-dev || exit 1
 
