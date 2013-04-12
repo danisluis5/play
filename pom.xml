@@ -109,7 +109,7 @@
       <activation>
         <os>
           <family>Windows</family>
-          <arch>x86_64</arch>
+          <arch>amd64</arch>
         </os>
       </activation>
       <dependencies>
