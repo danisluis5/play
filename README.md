@@ -20,7 +20,7 @@ Why another Java Video Library?
 # This library just works!
 
   - Windows (x32)
-  - Windows (x64) - (under PROGRESS)
+  - Windows (x64)
   - Linux (x32)
   - Linux (x64)
   - Mac OS X (x64)
