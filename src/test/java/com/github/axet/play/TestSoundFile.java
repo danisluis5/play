@@ -1,21 +1,20 @@
-package com.github.axet.vlc;
+package com.github.axet.play;
 
 import java.awt.BorderLayout;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.io.File;
 
 import javax.swing.JFrame;
 import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
 
+import org.junit.Test;
+
 import com.github.axet.play.PlaySound;
 
-public class TestSoundURL extends JFrame {
-
+public class TestSoundFile extends JFrame {
     JProgressBar progressBar;
 
-    public TestSoundURL() {
-
+    public TestSoundFile() {
         progressBar = new JProgressBar();
         progressBar.setMinimum(0);
         progressBar.setMaximum(100);
@@ -29,9 +28,8 @@ public class TestSoundURL extends JFrame {
     }
 
     PlaySound p = new PlaySound();
-    PlaySound p2 = new PlaySound();
 
-    public void run(URL f) {
+    public void run(File f) {
         p.addListener(new PlaySound.Listener() {
             @Override
             public void position(final float pos) {
@@ -64,30 +62,11 @@ public class TestSoundURL extends JFrame {
         p.open(f);
         System.out.println("run play");
         p.play();
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-
-        // test multichannel
-
-        // p2.open(f);
-        // p2.play();
     }
 
-    /**
-     * @param args
-     */
     public static void main(String[] args) {
-        URL f;
-        try {
-            f = new URL(args[0]);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-            return;
-        }
-        TestSoundURL t = new TestSoundURL();
+        TestSoundFile t = new TestSoundFile();
+        File f = new File(args[0]);
         t.run(f);
     }
 }

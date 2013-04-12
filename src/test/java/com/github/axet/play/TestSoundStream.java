@@ -1,4 +1,4 @@
-package com.github.axet.vlc;
+package com.github.axet.play;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -8,11 +8,11 @@ import java.io.InputStream;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
+import org.junit.Test;
+
 import com.github.axet.play.PlaySound;
 
-public class TestSoundStream extends JFrame {
-    private static final long serialVersionUID = 27911591221853186L;
-
+public class TestSoundStream extends JFrame{
     PlaySound p = new PlaySound();
 
     public TestSoundStream() {
@@ -51,8 +51,6 @@ public class TestSoundStream extends JFrame {
     }
 
     public static void main(String[] args) {
-        TestSoundStream t = new TestSoundStream();
-
         File f = new File(args[0]);
         InputStream is = null;
 
@@ -62,6 +60,7 @@ public class TestSoundStream extends JFrame {
             e.printStackTrace();
         }
 
+        TestSoundStream t = new TestSoundStream();
         t.open(is);
     }
 }

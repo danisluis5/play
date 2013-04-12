@@ -1,7 +1,10 @@
-package com.github.axet.vlc;
+package com.github.axet.play;
 
 import java.awt.BorderLayout;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 import javax.swing.JFrame;
 import javax.swing.JProgressBar;
@@ -9,36 +12,21 @@ import javax.swing.SwingUtilities;
 
 import com.github.axet.play.PlayVideo;
 
-public class TestVideoFile extends JFrame {
-    private static final long serialVersionUID = -2449941177902198161L;
-
+public class TestVideoSteam extends JFrame{
     PlayVideo c;
 
-    JProgressBar progressBar;
-
-    public TestVideoFile() {
-        super("PLAYER");
-
-        progressBar = new JProgressBar();
-        getContentPane().add(progressBar, BorderLayout.SOUTH);
-
+    public TestVideoSteam() {
         c = new PlayVideo();
 
         c.addListener(new PlayVideo.Listener() {
             @Override
             public void position(final float pos) {
-                SwingUtilities.invokeLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        progressBar.setValue((int) (100.0 * pos));
-                    }
-                });
+                System.out.println("no position event for inputstream possible");
             }
 
             @Override
             public void stop() {
                 System.out.println("actual streaming stop");
-
                 SwingUtilities.invokeLater(new Runnable() {
                     @Override
                     public void run() {
@@ -63,18 +51,24 @@ public class TestVideoFile extends JFrame {
         setVisible(true);
     }
 
-    public void run(File f) {
-        c.open(f);
-        System.out.println("run play");
+    public void open(InputStream is) {
+        c.open(is);
         c.play();
     }
 
-    /**
-     * @param args
-     */
     public static void main(String[] args) {
-        File f = new File(args[0]);
-        TestVideoFile t = new TestVideoFile();
-        t.run(f);
+        String name = args.length == 0 ? "test.mp3" : args[0];
+
+        File f = new File(name);
+
+        InputStream is = null;
+        try {
+            is = new FileInputStream(f);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        TestVideoSteam t = new TestVideoSteam();
+        t.open(is);
     }
 }
