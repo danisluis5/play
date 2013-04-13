@@ -333,7 +333,7 @@ Why another Java Video Library?
     <dependency>
       <groupId>com.github.axet</groupId>
       <artifactId>play</artifactId>
-      <version>0.0.5</version>
+      <version>0.0.7</version>
     </dependency>
     
 # Licence
