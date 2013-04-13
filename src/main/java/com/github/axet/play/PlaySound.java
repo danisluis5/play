@@ -161,4 +161,16 @@ public class PlaySound {
     public void setVolume(int v) {
         LibVlc.INSTANCE.libvlc_audio_set_volume(m.getInstance(), v);
     }
+
+    public void pause(boolean pause) {
+        LibVlc.INSTANCE.libvlc_media_player_set_pause(m.getInstance(), pause);
+    }
+
+    public void setPosition(float f) {
+        LibVlc.INSTANCE.libvlc_media_player_set_position(m.getInstance(), f);
+    }
+
+    public float getPosition() {
+        return LibVlc.INSTANCE.libvlc_media_player_get_position(m.getInstance());
+    }
 }
