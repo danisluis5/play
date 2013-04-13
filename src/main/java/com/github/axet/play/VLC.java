@@ -2,7 +2,7 @@ package com.github.axet.play;
 
 import java.io.File;
 
-import com.github.axet.mnp.MavenNatives;
+import com.github.axet.mavennatives.MavenNatives;
 import com.github.axet.play.vlc.LibC;
 import com.github.axet.play.vlc.LibVlc;
 import com.github.axet.play.vlc.libvlc_instance_t;
@@ -22,18 +22,29 @@ public class VLC {
 
     boolean close = false;
 
+    static String VLC_CORE = "vlccore";
+    static String VLC = "vlc";
+
     static {
-        MavenNatives.mavenNatives(new String[] { "vlccore", "vlc" });
+        preloadLibrary(VLC_CORE, MavenNatives.mavenNative(VLC_CORE));
 
-        File path = NativeLibrary.getInstance("vlc").getFile().getParentFile();
+        File vlc = preloadLibrary(VLC, MavenNatives.mavenNative(VLC));
 
-        setPluginPath(path);
+        setPluginPath(vlc.getParentFile());
+    }
+
+    static File preloadLibrary(String lib, File path) {
+        NativeLibrary.addSearchPath(lib, path.getParent());
+        NativeLibrary.getInstance(lib);
+
+        return path;
     }
 
     public static void setPluginPath(File path) {
         if (Platform.isLinux() || Platform.isMac()) {
             LibC.INSTANCE.setenv("VLC_PLUGIN_PATH", path.toString(), 1);
         }
+
         if (Platform.isWindows()) {
             Kernel32.INSTANCE.SetEnvironmentVariable("VLC_PLUGIN_PATH", path.toString());
         }

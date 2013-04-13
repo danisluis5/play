@@ -41,6 +41,8 @@ public interface LibVlc extends Library {
 
     float libvlc_media_player_get_position(libvlc_media_player_t p_mi);
 
+    float libvlc_media_player_set_position(libvlc_media_player_t p_mi, float pos);
+
     // vlc video
 
     void libvlc_media_player_set_media(libvlc_media_player_t p_mi, libvlc_media_t p_md);
@@ -62,4 +64,6 @@ public interface LibVlc extends Library {
     void libvlc_media_player_set_pause(libvlc_media_player_t mp, int do_pause);
 
     void libvlc_audio_set_volume(libvlc_media_player_t mp, int i_volume);
+
+    void libvlc_media_player_set_pause(libvlc_media_player_t mp, boolean pause);
 }
