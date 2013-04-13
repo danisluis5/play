@@ -50,7 +50,7 @@
     <dependency>
       <groupId>com.github.axet</groupId>
       <artifactId>mavennatives</artifactId>
-      <version>0.0.3</version>
+      <version>0.0.7</version>
     </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>

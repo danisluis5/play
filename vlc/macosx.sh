@@ -25,3 +25,12 @@ mkdir -p ../../vlc/contrib/osx || exit 1
 (mkdir -p natives) || exit 1
 (find build/vlc_install_dir/ -name *plugin.dylib -exec cp {} $PWD/natives/ \;) || exit 1
 (cp build/vlc_install_dir/lib/*.dylib natives/) || exit 1
+
+# replace all absolute paths to natives librarys with @loader_path prefix
+for i in natives/*.dylib; do
+  echo $i
+  for ii in natives/*.dylib; do
+    ii=$(basename $ii)
+    install_name_tool -change $PWD/build/vlc_install_dir/lib/$ii @loader_path/$ii $i
+  done
+done
