@@ -108,6 +108,8 @@ public class PlaySound {
         LibVlc.INSTANCE.libvlc_event_attach(ev, libvlc_event_type_t.libvlc_MediaPlayerPlaying, evets, null);
         LibVlc.INSTANCE.libvlc_event_attach(ev, libvlc_event_type_t.libvlc_MediaPlayerEndReached, evets, null);
         LibVlc.INSTANCE.libvlc_event_attach(ev, libvlc_event_type_t.libvlc_MediaPlayerPositionChanged, evets, null);
+
+        setVolume(100);
     }
 
     public void open(URL f) {
@@ -130,7 +132,6 @@ public class PlaySound {
     }
 
     public void play() {
-        setVolume(100);
         LibVlc.INSTANCE.libvlc_media_player_play(m.getInstance());
     }
 

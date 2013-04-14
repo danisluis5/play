@@ -62,6 +62,7 @@ public class TestSoundFile extends JFrame {
         p.open(f);
         System.out.println("run play");
         p.play();
+        p.setPosition(0.99f);
     }
 
     public static void main(String[] args) {

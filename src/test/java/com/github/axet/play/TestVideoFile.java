@@ -62,6 +62,7 @@ public class TestVideoFile extends JFrame{
         c.open(f);
         System.out.println("run play");
         c.play();
+        c.setPosition(0.99f);
     }
 
     /**

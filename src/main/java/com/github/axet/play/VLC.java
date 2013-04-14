@@ -33,8 +33,25 @@ public class VLC {
         setPluginPath(vlc.getParentFile());
     }
 
+    public VLC() {
+        synchronized (lock) {
+            if (count == 0) {
+                inst = LibVlc.INSTANCE.libvlc_new(vlc_args.length, vlc_args);
+
+                if (inst == null)
+                    throw new RuntimeException("Unable to instantiate VLC");
+
+                VLCWarmup.warmup(this);
+            }
+
+            count++;
+        }
+    }
+    
+
     /**
-     * force load native librayrs to load. should be called from main thread.
+     * force load native librayrs to load. should be called from main thread to
+     * help library lookup.
      */
     static public void preloadNatives() {
     }
@@ -53,21 +70,6 @@ public class VLC {
 
         if (Platform.isWindows()) {
             Kernel32.INSTANCE.SetEnvironmentVariable("VLC_PLUGIN_PATH", path.toString());
-        }
-    }
-
-    public VLC() {
-        synchronized (lock) {
-            if (count == 0) {
-                inst = LibVlc.INSTANCE.libvlc_new(vlc_args.length, vlc_args);
-
-                if (inst == null)
-                    throw new RuntimeException("Unable to instantiate VLC");
-
-                VLCWarmup.warmup(this);
-            }
-
-            count++;
         }
     }
 

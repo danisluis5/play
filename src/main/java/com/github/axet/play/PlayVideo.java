@@ -88,7 +88,6 @@ public class PlayVideo extends Canvas {
                     l.position(1.0f);
                     l.stop();
                 }
-                stop();
                 break;
             case libvlc_event_type_t.libvlc_MediaPlayerPositionChanged:
                 for (Listener l : listeners) {
@@ -113,7 +112,7 @@ public class PlayVideo extends Canvas {
         listeners.remove(l);
     }
 
-    public void create() {
+    void create() {
         vlc = new VLC();
 
         m = new VLCMediaPlayer();
@@ -130,6 +129,8 @@ public class PlayVideo extends Canvas {
         attach();
 
         addHierarchyListener(hh);
+
+        setVolume(100);
     }
 
     void attach() {
@@ -156,7 +157,6 @@ public class PlayVideo extends Canvas {
     }
 
     public void play() {
-        setVolume(100);
         LibVlc.INSTANCE.libvlc_media_player_play(m.getInstance());
     }
 
@@ -172,13 +172,13 @@ public class PlayVideo extends Canvas {
     public void close() {
         removeHierarchyListener(hh);
 
-        if (m != null) {
-            m.close();
-            m = null;
-        }
         if (fl != null) {
             LibVlc.INSTANCE.libvlc_media_release(fl);
             fl = null;
+        }
+        if (m != null) {
+            m.close();
+            m = null;
         }
         if (vlc != null) {
             vlc.close();
