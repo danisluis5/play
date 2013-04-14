@@ -57,6 +57,8 @@ public class PlayVideo extends Canvas {
 
     libvlc_media_t fl;
 
+    boolean pause = false;
+
     HierarchyListener hh = new HierarchyListener() {
         @Override
         public void hierarchyChanged(HierarchyEvent arg0) {
@@ -185,7 +187,16 @@ public class PlayVideo extends Canvas {
     }
 
     public void pause(boolean pause) {
+        this.pause = pause;
         LibVlc.INSTANCE.libvlc_media_player_set_pause(m.getInstance(), pause);
+    }
+
+    public boolean pause() {
+        return pause;
+    }
+
+    public int getVolume() {
+        return LibVlc.INSTANCE.libvlc_audio_get_volume(m.getInstance());
     }
 
     public void setVolume(int v) {
@@ -202,5 +213,14 @@ public class PlayVideo extends Canvas {
 
     public boolean isPlaying() {
         return LibVlc.INSTANCE.libvlc_media_player_is_playing(m.getInstance());
+    }
+
+    /**
+     * return media length;
+     * 
+     * @return ms
+     */
+    public long getLength() {
+        return LibVlc.INSTANCE.libvlc_media_player_get_length(m.getInstance());
     }
 }
