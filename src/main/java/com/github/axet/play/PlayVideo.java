@@ -161,7 +161,6 @@ public class PlayVideo extends Canvas {
     }
 
     public void stop() {
-        LibVlc.INSTANCE.libvlc_audio_set_volume(m.getInstance(), 0);
         LibVlc.INSTANCE.libvlc_media_player_stop(m.getInstance());
     }
 
