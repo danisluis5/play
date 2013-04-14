@@ -66,4 +66,6 @@ public interface LibVlc extends Library {
     void libvlc_audio_set_volume(libvlc_media_player_t mp, int i_volume);
 
     void libvlc_media_player_set_pause(libvlc_media_player_t mp, boolean pause);
+    
+    boolean libvlc_media_player_is_playing(libvlc_media_player_t mp);
 }

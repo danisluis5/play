@@ -1,6 +1,8 @@
 package com.github.axet.play;
 
 import java.awt.Canvas;
+import java.awt.event.HierarchyEvent;
+import java.awt.event.HierarchyListener;
 import java.io.File;
 import java.io.InputStream;
 import java.io.RandomAccessFile;
@@ -108,6 +110,26 @@ public class PlayVideo extends Canvas {
         LibVlc.INSTANCE.libvlc_event_attach(ev, libvlc_event_type_t.libvlc_MediaPlayerEndReached, evets, null);
         LibVlc.INSTANCE.libvlc_event_attach(ev, libvlc_event_type_t.libvlc_MediaPlayerPositionChanged, evets, null);
 
+        attach();
+
+        final Canvas canvas = this;
+        canvas.addHierarchyListener(new HierarchyListener() {
+            @Override
+            public void hierarchyChanged(HierarchyEvent arg0) {
+                if (canvas.isShowing()) {
+                    if (PlayVideo.this.isPlaying()) {
+                        float f = PlayVideo.this.getPosition();
+                        PlayVideo.this.stop();
+                        attach();
+                        PlayVideo.this.play();
+                        PlayVideo.this.setPosition(f);
+                    }
+                }
+            }
+        });
+    }
+
+    void attach() {
         if (Platform.isMac())
             LibVlc.INSTANCE.libvlc_media_player_set_nsobject(m.getInstance(), Native.getComponentID(this));
 
@@ -173,5 +195,9 @@ public class PlayVideo extends Canvas {
 
     public float getPosition() {
         return LibVlc.INSTANCE.libvlc_media_player_get_position(m.getInstance());
+    }
+
+    public boolean isPlaying() {
+        return LibVlc.INSTANCE.libvlc_media_player_is_playing(m.getInstance());
     }
 }

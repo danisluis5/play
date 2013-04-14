@@ -33,6 +33,12 @@ public class VLC {
         setPluginPath(vlc.getParentFile());
     }
 
+    /**
+     * force load native librayrs to load. should be called from main thread.
+     */
+    static public void preloadNatives() {
+    }
+
     static File preloadLibrary(String lib, File path) {
         NativeLibrary.addSearchPath(lib, path.getParent());
         NativeLibrary.getInstance(lib);
