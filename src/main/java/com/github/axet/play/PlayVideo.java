@@ -57,6 +57,21 @@ public class PlayVideo extends Canvas {
 
     libvlc_media_t fl;
 
+    HierarchyListener hh = new HierarchyListener() {
+        @Override
+        public void hierarchyChanged(HierarchyEvent arg0) {
+            if (PlayVideo.this.isShowing()) {
+                if (PlayVideo.this.isPlaying()) {
+                    float f = PlayVideo.this.getPosition();
+                    PlayVideo.this.stop();
+                    attach();
+                    PlayVideo.this.play();
+                    PlayVideo.this.setPosition(f);
+                }
+            }
+        }
+    };
+
     libvlc_callback_t evets = new libvlc_callback_t() {
         @Override
         public void libvlc_callback(IntByReference p_event, Pointer p_user_data) {
@@ -112,21 +127,7 @@ public class PlayVideo extends Canvas {
 
         attach();
 
-        final Canvas canvas = this;
-        canvas.addHierarchyListener(new HierarchyListener() {
-            @Override
-            public void hierarchyChanged(HierarchyEvent arg0) {
-                if (canvas.isShowing()) {
-                    if (PlayVideo.this.isPlaying()) {
-                        float f = PlayVideo.this.getPosition();
-                        PlayVideo.this.stop();
-                        attach();
-                        PlayVideo.this.play();
-                        PlayVideo.this.setPosition(f);
-                    }
-                }
-            }
-        });
+        addHierarchyListener(hh);
     }
 
     void attach() {
@@ -167,6 +168,8 @@ public class PlayVideo extends Canvas {
     }
 
     public void close() {
+        removeHierarchyListener(hh);
+
         if (m != null) {
             m.close();
             m = null;
