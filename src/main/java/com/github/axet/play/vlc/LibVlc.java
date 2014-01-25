@@ -11,7 +11,7 @@ public interface LibVlc extends Library {
 
     static LibVlc INSTANCE = (LibVlc) Native.loadLibrary("vlc", LibVlc.class);
 
-    // open
+    // media
 
     libvlc_media_t libvlc_media_new_as_node(libvlc_instance_t p_instance, String psz_name);
 
@@ -20,6 +20,8 @@ public interface LibVlc extends Library {
     libvlc_media_t libvlc_media_new_path(libvlc_instance_t p_instance, String path);
 
     libvlc_media_t libvlc_media_new_location(libvlc_instance_t p_instance, String psz_mrl);
+
+    long libvlc_media_get_duration(libvlc_media_t p_md);
 
     void libvlc_media_release(libvlc_media_t p_md);
 
@@ -42,6 +44,12 @@ public interface LibVlc extends Library {
     float libvlc_media_player_get_position(libvlc_media_player_t p_mi);
 
     float libvlc_media_player_set_position(libvlc_media_player_t p_mi, float pos);
+
+    // player
+
+    long libvlc_media_player_get_length(libvlc_media_player_t p_mi);
+
+    long libvlc_media_player_get_time(libvlc_media_player_t p_mi);
 
     // vlc video
 
