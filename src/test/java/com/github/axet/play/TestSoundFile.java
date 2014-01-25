@@ -7,10 +7,6 @@ import javax.swing.JFrame;
 import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
 
-import org.junit.Test;
-
-import com.github.axet.play.PlaySound;
-
 public class TestSoundFile extends JFrame {
     JProgressBar progressBar;
 
@@ -27,10 +23,10 @@ public class TestSoundFile extends JFrame {
         setVisible(true);
     }
 
-    PlaySound p = new PlaySound();
+    VLC p = new VLC();
 
     public void run(File f) {
-        p.addListener(new PlaySound.Listener() {
+        p.addListener(new VLC.Listener() {
             @Override
             public void position(final float pos) {
                 SwingUtilities.invokeLater(new Runnable() {
@@ -62,6 +58,7 @@ public class TestSoundFile extends JFrame {
         p.open(f);
         System.out.println("run play");
         p.play();
+        p.setPosition(0.99f);
     }
 
     public static void main(String[] args) {

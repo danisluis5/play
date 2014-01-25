@@ -4,7 +4,7 @@ import com.github.axet.play.vlc.LibVlc;
 import com.github.axet.play.vlc.libvlc_media_player_t;
 
 public class VLCMediaPlayer {
-    VLC vlc = new VLC();
+    VLCInstance vlc = new VLCInstance();
 
     libvlc_media_player_t m = LibVlc.INSTANCE.libvlc_media_player_new(vlc.getInstance());
 

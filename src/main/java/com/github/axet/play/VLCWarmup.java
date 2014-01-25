@@ -49,7 +49,7 @@ public class VLCWarmup {
         }
     };
 
-    static public void warmup(VLC vlc) {
+    static public void warmup(VLCInstance vlc) {
         libvlc_media_player_t m = LibVlc.INSTANCE.libvlc_media_player_new(vlc.getInstance());
 
         MemoryStream mem = new MemoryStream(VLCWarmup.class.getResourceAsStream("empty.ogg"));
