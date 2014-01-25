@@ -8,12 +8,8 @@ import java.io.InputStream;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
-import org.junit.Test;
-
-import com.github.axet.play.PlaySound;
-
-public class TestSoundStream extends JFrame{
-    PlaySound p = new PlaySound();
+public class TestSoundStream extends JFrame {
+    VLC p = new VLC();
 
     public TestSoundStream() {
         setSize(300, 300);
@@ -21,7 +17,7 @@ public class TestSoundStream extends JFrame{
         setLocationRelativeTo(null);
         setVisible(true);
 
-        p.addListener(new PlaySound.Listener() {
+        p.addListener(new VLC.Listener() {
             @Override
             public void position(final float pos) {
             }

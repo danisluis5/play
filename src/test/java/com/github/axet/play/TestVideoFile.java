@@ -1,25 +1,33 @@
 package com.github.axet.play;
 
 import java.awt.BorderLayout;
+import java.awt.Canvas;
 import java.io.File;
 
 import javax.swing.JFrame;
 import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
 
-import com.github.axet.play.PlayVideo;
-
-public class TestVideoFile extends JFrame{
-    PlayVideo c;
+public class TestVideoFile extends JFrame {
+    VLC vlc;
+    Canvas c;
     JProgressBar progressBar;
+
+    static String ms2time(long ms) {
+        long second = (ms / 1000) % 60;
+        long minute = (ms / (1000 * 60)) % 60;
+        long hour = (ms / (1000 * 60 * 60)) % 24;
+
+        return String.format("%02d:%02d:%02d", hour, minute, second);
+    }
 
     public TestVideoFile() {
         progressBar = new JProgressBar();
         getContentPane().add(progressBar, BorderLayout.SOUTH);
 
-        c = new PlayVideo();
+        vlc = new VLC();
 
-        c.addListener(new PlayVideo.Listener() {
+        vlc.addListener(new VLC.Listener() {
             @Override
             public void position(final float pos) {
                 SwingUtilities.invokeLater(new Runnable() {
@@ -37,7 +45,7 @@ public class TestVideoFile extends JFrame{
                 SwingUtilities.invokeLater(new Runnable() {
                     @Override
                     public void run() {
-                        c.close();
+                        vlc.close();
                         dispose();
                     }
                 });
@@ -49,6 +57,8 @@ public class TestVideoFile extends JFrame{
             }
         });
 
+        c = new Canvas();
+
         getContentPane().add(c, BorderLayout.CENTER);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -56,13 +66,14 @@ public class TestVideoFile extends JFrame{
         setSize(500, 500);
         setLocationRelativeTo(null);
         setVisible(true);
+
+        vlc.setVideoCanvas(c);
     }
 
     public void run(File f) {
-        c.open(f);
+        vlc.open(f);
         System.out.println("run play");
-        c.play();
-        c.setPosition(0.99f);
+        vlc.play();
     }
 
     /**

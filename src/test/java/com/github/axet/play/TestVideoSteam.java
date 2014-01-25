@@ -1,24 +1,23 @@
 package com.github.axet.play;
 
 import java.awt.BorderLayout;
+import java.awt.Canvas;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import javax.swing.JFrame;
-import javax.swing.JProgressBar;
 import javax.swing.SwingUtilities;
 
-import com.github.axet.play.PlayVideo;
-
-public class TestVideoSteam extends JFrame{
-    PlayVideo c;
+public class TestVideoSteam extends JFrame {
+    VLC c;
+    Canvas cc;
 
     public TestVideoSteam() {
-        c = new PlayVideo();
+        c = new VLC();
 
-        c.addListener(new PlayVideo.Listener() {
+        c.addListener(new VLC.Listener() {
             @Override
             public void position(final float pos) {
                 System.out.println("no position event for inputstream possible");
@@ -42,7 +41,10 @@ public class TestVideoSteam extends JFrame{
             }
         });
 
-        getContentPane().add(c, BorderLayout.CENTER);
+        cc = new Canvas();
+        c.setVideoCanvas(cc);
+
+        getContentPane().add(cc, BorderLayout.CENTER);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
