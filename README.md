@@ -27,7 +27,7 @@ Why another Java Video Library?
 
 ## Example Sound Player
 
-    package com.github.axet.vlc;
+    package com.github.axet.play;
     
     import java.awt.BorderLayout;
     import java.io.File;
@@ -36,14 +36,10 @@ Why another Java Video Library?
     import javax.swing.JProgressBar;
     import javax.swing.SwingUtilities;
     
-    import com.github.axet.play.PlaySound;
-    
     public class TestSoundFile extends JFrame {
-    
         JProgressBar progressBar;
     
         public TestSoundFile() {
-    
             progressBar = new JProgressBar();
             progressBar.setMinimum(0);
             progressBar.setMaximum(100);
@@ -56,10 +52,10 @@ Why another Java Video Library?
             setVisible(true);
         }
     
-        PlaySound p = new PlaySound();
+        VLC p = new VLC();
     
         public void run(File f) {
-            p.addListener(new PlaySound.Listener() {
+            p.addListener(new VLC.Listener() {
                 @Override
                 public void position(final float pos) {
                     SwingUtilities.invokeLater(new Runnable() {
@@ -91,18 +87,19 @@ Why another Java Video Library?
             p.open(f);
             System.out.println("run play");
             p.play();
+            p.setPosition(0.99f);
         }
     
         public static void main(String[] args) {
-            File f = new File(args[0]);
             TestSoundFile t = new TestSoundFile();
+            File f = new File(args[0]);
             t.run(f);
         }
     }
 
 ## Example Sound InputStream
 
-    package com.github.axet.vlc;
+    package com.github.axet.play;
     
     import java.io.File;
     import java.io.FileInputStream;
@@ -112,12 +109,8 @@ Why another Java Video Library?
     import javax.swing.JFrame;
     import javax.swing.SwingUtilities;
     
-    import com.github.axet.play.PlaySound;
-    
     public class TestSoundStream extends JFrame {
-        private static final long serialVersionUID = 27911591221853186L;
-    
-        PlaySound p = new PlaySound();
+        VLC p = new VLC();
     
         public TestSoundStream() {
             setSize(300, 300);
@@ -125,7 +118,7 @@ Why another Java Video Library?
             setLocationRelativeTo(null);
             setVisible(true);
     
-            p.addListener(new PlaySound.Listener() {
+            p.addListener(new VLC.Listener() {
                 @Override
                 public void position(final float pos) {
                 }
@@ -155,8 +148,6 @@ Why another Java Video Library?
         }
     
         public static void main(String[] args) {
-            TestSoundStream t = new TestSoundStream();
-    
             File f = new File(args[0]);
             InputStream is = null;
     
@@ -166,42 +157,43 @@ Why another Java Video Library?
                 e.printStackTrace();
             }
     
+            TestSoundStream t = new TestSoundStream();
             t.open(is);
         }
     }
 
-
 ## Example Video Player
 
-    package com.github.axet.vlc;
+    package com.github.axet.play;
     
     import java.awt.BorderLayout;
+    import java.awt.Canvas;
     import java.io.File;
     
     import javax.swing.JFrame;
     import javax.swing.JProgressBar;
     import javax.swing.SwingUtilities;
     
-    import com.github.axet.play.PlayVideo;
-    import com.github.axet.play.VLC;
-    import com.sun.jna.NativeLibrary;
-    
     public class TestVideoFile extends JFrame {
-        private static final long serialVersionUID = -2449941177902198161L;
-    
-        PlayVideo c;
-    
+        VLC vlc;
+        Canvas c;
         JProgressBar progressBar;
     
-        public TestVideoFile() {
-            super("PLAYER");
+        static String ms2time(long ms) {
+            long second = (ms / 1000) % 60;
+            long minute = (ms / (1000 * 60)) % 60;
+            long hour = (ms / (1000 * 60 * 60)) % 24;
     
+            return String.format("%02d:%02d:%02d", hour, minute, second);
+        }
+    
+        public TestVideoFile() {
             progressBar = new JProgressBar();
             getContentPane().add(progressBar, BorderLayout.SOUTH);
     
-            c = new PlayVideo();
+            vlc = new VLC();
     
-            c.addListener(new PlayVideo.Listener() {
+            vlc.addListener(new VLC.Listener() {
                 @Override
                 public void position(final float pos) {
                     SwingUtilities.invokeLater(new Runnable() {
@@ -214,10 +206,12 @@ Why another Java Video Library?
     
                 @Override
                 public void stop() {
+                    System.out.println("actual streaming stop");
+    
                     SwingUtilities.invokeLater(new Runnable() {
                         @Override
                         public void run() {
-                            c.close();
+                            vlc.close();
                             dispose();
                         }
                     });
@@ -225,8 +219,11 @@ Why another Java Video Library?
     
                 @Override
                 public void start() {
+                    System.out.println("actual streaming start");
                 }
             });
+    
+            c = new Canvas();
     
             getContentPane().add(c, BorderLayout.CENTER);
     
@@ -235,15 +232,23 @@ Why another Java Video Library?
             setSize(500, 500);
             setLocationRelativeTo(null);
             setVisible(true);
+    
+            vlc.setVideoCanvas(c);
         }
     
         public void run(File f) {
-            c.open(f);
-            c.play();
+            vlc.open(f);
+            System.out.println("run play");
+            vlc.play();
         }
     
+        /**
+         * @param args
+         */
         public static void main(String[] args) {
-            File f = new File(args[0]);
+            String name = args.length == 0 ? "test.mp3" : args[0];
+    
+            File f = new File(name);
             TestVideoFile t = new TestVideoFile();
             t.run(f);
         }
@@ -251,29 +256,26 @@ Why another Java Video Library?
 
 ## Example Video InputStream
 
-    package com.github.axet.vlc;
+    package com.github.axet.play;
     
     import java.awt.BorderLayout;
+    import java.awt.Canvas;
     import java.io.File;
     import java.io.FileInputStream;
     import java.io.FileNotFoundException;
     import java.io.InputStream;
     
     import javax.swing.JFrame;
-    import javax.swing.JProgressBar;
     import javax.swing.SwingUtilities;
     
-    import com.github.axet.play.PlayVideo;
-    
     public class TestVideoSteam extends JFrame {
-        private static final long serialVersionUID = -2449941177902198161L;
-    
-        PlayVideo c;
+        VLC c;
+        Canvas cc;
     
         public TestVideoSteam() {
-            c = new PlayVideo();
+            c = new VLC();
     
-            c.addListener(new PlayVideo.Listener() {
+            c.addListener(new VLC.Listener() {
                 @Override
                 public void position(final float pos) {
                     System.out.println("no position event for inputstream possible");
@@ -297,7 +299,10 @@ Why another Java Video Library?
                 }
             });
     
-            getContentPane().add(c, BorderLayout.CENTER);
+            cc = new Canvas();
+            c.setVideoCanvas(cc);
+    
+            getContentPane().add(cc, BorderLayout.CENTER);
     
             setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     
@@ -312,9 +317,9 @@ Why another Java Video Library?
         }
     
         public static void main(String[] args) {
-            TestVideoSteam t = new TestVideoSteam();
+            String name = args.length == 0 ? "test.mp3" : args[0];
     
-            File f = new File(args[0]);
+            File f = new File(name);
     
             InputStream is = null;
             try {
@@ -323,17 +328,17 @@ Why another Java Video Library?
                 e.printStackTrace();
             }
     
+            TestVideoSteam t = new TestVideoSteam();
             t.open(is);
         }
     }
-
 
 ## Central Maven Repo
 
     <dependency>
       <groupId>com.github.axet</groupId>
       <artifactId>play</artifactId>
-      <version>0.0.8</version>
+      <version>1.0.0</version>
     </dependency>
     
 # Licence
