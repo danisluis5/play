@@ -340,7 +340,7 @@ YouTube: http://www.youtube.com/watch?v=EnmhG5nClfw
     <dependency>
       <groupId>com.github.axet</groupId>
       <artifactId>play</artifactId>
-      <version>1.0.0</version>
+      <version>1.0.1</version>
     </dependency>
     
 # Licence
