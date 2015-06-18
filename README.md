@@ -11,7 +11,7 @@ Why another Java Video Library?
 
 - VLCJ - windows library, never been tested on Mac and Linux platform. It is worth mentioning author do not care about community, unless you have paid subscription. Also I'm sure VLCJ will never be released under LGPL licence.
 
-YouTube: http://www.youtube.com/watch?v=VA0lHjLPT6w
+YouTube: https://www.youtube.com/watch?v=h0rdCroOO3c
 
 # Features
   - native maven support (take it from central repo!)
